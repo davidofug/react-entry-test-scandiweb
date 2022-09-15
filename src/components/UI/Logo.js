@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react'
 import LogoIcon from '../../assets/icons/a-logo.png'
 
