@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 import Logo from './Logo'
 import CartIcon from './CartIcon'
 import{Link} from 'react-router-dom'
+import {COLORS,FONTS} from '../constants'
 
 
 const Nav = styled.nav`
@@ -26,6 +27,12 @@ gap: 10px;
 `
 
 export default class Navigation extends Component {
+
+  constructor() {
+    super();
+   
+  }
+
   render() {
     return (
       <Nav>
