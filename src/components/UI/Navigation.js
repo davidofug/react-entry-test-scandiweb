@@ -3,22 +3,18 @@ import styled from 'styled-components/macro'
 import Logo from './Logo'
 import CartIcon from './CartIcon'
 import{Link} from 'react-router-dom'
-import {COLORS,FONTS} from '../constants'
+// import {COLORS,FONTS} from '../constants'
 
 
 const Nav = styled.nav`
-
 display:flex;
 justify-content:space-between;
 background:#FFF;
 padding:10px;
 
-
-
 `
 
 const UL = styled.ul`
-
 display:flex;
 list-style-type:none;
 text-transform:uppercase;
@@ -27,12 +23,6 @@ gap: 10px;
 `
 
 export default class Navigation extends Component {
-
-  constructor() {
-    super();
-   
-  }
-
   render() {
     return (
       <Nav>
