@@ -29,12 +29,15 @@ padding-right:16px;
 `
 const NavItem = styled(NavLink)`
 text-decoration:none;
+color:${COLORS.BLACK};
 font-family: ${FONTS.FAMILIES.RALEWAY};
 
 &:hover{
   color: ${COLORS.GREEN};
   transition: 0.2s ease all;
   border-bottom:2px solid ${COLORS.GREEN};
+
+  
   
 }
 `
