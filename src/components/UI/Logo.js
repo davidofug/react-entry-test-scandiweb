@@ -4,7 +4,7 @@ import LogoIcon from '../../assets/icons/a-logo.png'
 export default class Logo extends Component {
   render() {
     return (
-      <img src = {LogoIcon}/>
+      <img src = {LogoIcon} alt ='Brand-Icon'/>
     )
   }
 }
