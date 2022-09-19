@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components/macro'
-import {COLORS,FONTS} from '../../components/constants'
+import {COLORS} from '../../components/constants'
 
 const CategoryLayout = styled.main`
 box-sizing:border-box;
@@ -17,7 +17,7 @@ export default class Category extends Component {
   render() {
     return (
       <CategoryLayout>
-      <div>Category</div>
+      <div>Category Name</div>
       </CategoryLayout>
     )
   }
