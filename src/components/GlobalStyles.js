@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import {COLORS} from './constants'
+import {COLORS,FONTS} from './constants'
 
 const GlobalStyle = createGlobalStyle`
 *{
@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     min-height:0;
     background:${COLORS.BACKGROUND.GRAY};
     color:${COLORS.BLACK};
-    font-family:Raleway, Sans-Serif;
+    font-family:${FONTS.FAMILIES.RALEWAY} 'Sans-Serif';
   }
 `;
  

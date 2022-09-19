@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
+import styled from 'styled-components/macro'
+import{COLORS} from './constants'
 import Navigation from './UI/Navigation'
 
 const HeaderWrapper =styled.header`
-position: absolute;
-width: 1440px;
-height: 80px;
-left: 0px;
-top: 0px;
+display:flex;
+justify-content:space-between;
+padding-left:32px;
+padding-right:32px;
 background:${COLORS.WHITE}
 
 `
 export default class Header extends Component {
   render() {
     return (
-  <HeaderWrapper>
+    <HeaderWrapper>
     <Navigation/>
-  </HeaderWrapper>
+    </HeaderWrapper>
+  
     )
   }
 }

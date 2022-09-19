@@ -1,66 +1,61 @@
-import React, { Component } from 'react'
-import styled from 'styled-components/macro'
-import Logo from './Logo'
-import CartIcon from './CartIcon'
-import{NavLink} from 'react-router-dom'
-import {COLORS,FONTS} from '../constants'
+  import React, { Component } from 'react'
+  import styled from 'styled-components/macro'
+  import Logo from './Logo'
+  import CartContainer from './CartContainer'
+  import{NavLink} from 'react-router-dom'
+  import {COLORS,FONTS} from '../constants'
+  const Nav = styled.nav`
+    display:flex;
+    align-items:center;
+    gap:32px;
+    background:${COLORS.WHITE}; 
+    font-family:${FONTS.FAMILIES.RALEWAY};
+    color:${COLORS.BLACK};
+    flex:1;
+  `
+  const NavItem = styled(NavLink)`
+    text-decoration:none;
+    padding-top:20px;
+    text-transform:uppercase;
+    padding-bottom:20px;
+    color:${COLORS.BLACK};
+    font-family: ${FONTS.FAMILIES.RALEWAY};
+    border-bottom:2px solid transparent;
+    &:hover{
+      color: ${COLORS.GREEN};
+      transition: 0.2s ease all;
+      border-bottom:2px solid ${COLORS.GREEN};
+    }
 
-// import Select from './Select'
 
-const Nav = styled.nav`
-display:flex;
-width:1440px;
-justify-content:space-between;
-align-items:center;
-background:${COLORS.WHITE}; 
-font-family:${FONTS.FAMILIES.RALEWAY};
-padding:10px;
-width:100%;
-color:${COLORS.BLACK}
+  `
+  const LogoView = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex:1;
+  `
 
-`
-const NavItems = styled.ul`
-display:flex;
-list-style-type:none;
-text-transform:uppercase;
-margin:28px 32px;
-gap:30px;
-padding-left: 16px;
-padding-right:16px;
-
-`
-const NavItem = styled(NavLink)`
-text-decoration:none;
-color:${COLORS.BLACK};
-font-family: ${FONTS.FAMILIES.RALEWAY};
-&:hover{
-  color: ${COLORS.GREEN};
-  transition: 0.2s ease all;
-  border-bottom:2px solid ${COLORS.GREEN};
- }
-`
-export default class Navigation extends Component {
-  render() {
-    return (
-    
-      <Nav>
-        <NavItems>
-           <NavItem to = '/'>Women</NavItem>
-           <NavItem to = '/categorypage'>Men</NavItem>
-           <NavItem to = '/productdetails'>Kids</NavItem>
-         </NavItems>
-
-      <Logo/>
-  
-      <section>
-      <CartIcon/>
-      </section>
-  
-     
-      </Nav>
-      
+  export default class Navigation extends Component {
+    render() {
+      return (
+      <>
+        <Nav>
+        { /* <NavItems> */}
+            <NavItem to = '/'>Women</NavItem>
+            <NavItem to = '/categorypage'>Men</NavItem>
+            <NavItem to = '/productdetails'>Kids</NavItem>
+           { /* </NavItems> */}
+          </Nav>
+        <LogoView>
+          <Logo/>
+        </LogoView>
+        <CartContainer/>
+        </>
+       
         
-    )
+          
+      )
+    }
   }
-}
 

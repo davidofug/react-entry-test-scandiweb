@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
-import Navigation from './components/UI/Navigation'
+import HeaderWrapper from './components/Header'
 import Category from 'webpages/productListing/Category';
 import GlobalStyle from 'components/GlobalStyles';
 
@@ -24,7 +24,7 @@ const apolloClient = new ApolloClient({
       <ApolloProvider client={apolloClient}>
       {console.log(apolloClient)}
     
-      <Navigation/>
+      <HeaderWrapper/>
       {/* <Logo/>
       <CartIcon/>
       <CircleCartIcon/>
