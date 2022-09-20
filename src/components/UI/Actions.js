@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
 import styled from 'styled-components/macro'
 import CartIcon from './CartIcon'
-import Modal from './Modal'
+import CurrencySwitcher from './CurrencySwitcher'
 const Wrapper = styled.div`
     display:flex;
+    gap:15px;
     justify-content:flex-end;
     align-items:center;
     flex:1;
 
 `
-
-export default class CartContainer extends Component {
+export default class Actions extends Component {
   render() {
     return (
       <Wrapper>
-        <Modal/>
+        <CurrencySwitcher/>
         <CartIcon/>
       </Wrapper>
     )

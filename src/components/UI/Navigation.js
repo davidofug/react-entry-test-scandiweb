@@ -1,7 +1,7 @@
   import React, { Component } from 'react'
   import styled from 'styled-components/macro'
   import Logo from './Logo'
-  import CartContainer from './CartContainer'
+  import Actions from './Actions'
   import{NavLink} from 'react-router-dom'
   import {COLORS,FONTS} from '../constants'
   const Nav = styled.nav`
@@ -50,7 +50,7 @@
         <LogoView>
           <Logo/>
         </LogoView>
-        <CartContainer/>
+        <Actions/>
         </>
        
         

@@ -1,19 +1,21 @@
 import React, { Component } from 'react'
-import CartImage from '../../assets/icons/Empty-Cart.png'
+import CartIconPath from '../../assets/icons/Empty-Cart.png'
+import styled from 'styled-components/macro'
 import {COLORS} from '../constants'
+
+const CartImage = styled.img`
+  cursor: pointer;
+  height:20px;
+  width :20px;
+  color: ${COLORS.EMPTY_BASKETbg.BLACK};
+`
+
 export default class CartIcon extends Component {
   render() {
-    const styledIcon = {
-      height:20,
-      width :20,
-      color:COLORS.EMPTY_BASKETbg.BLACK,
-      
-
-      
-    }
+    
 
     return (
-      <img style ={styledIcon} src = {CartImage} alt ='Cart-Icon'/>
+        <CartImage src={CartIconPath} alt ='Cart-Icon' />
     )
   }
 }
