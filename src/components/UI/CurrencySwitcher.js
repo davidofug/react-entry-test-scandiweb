@@ -89,7 +89,7 @@ export default class CurrencySwitcher extends Component {
       this.wrapper.current && !this.wrapper.current.contains(event.target)
     ) {
       this.setState({
-        currencySwitch: false,
+        currencySwitch:false,
       });
     }
   };
@@ -106,6 +106,7 @@ export default class CurrencySwitcher extends Component {
           <CurrencyList>$ USD</CurrencyList>
           <CurrencyList>€ EUR</CurrencyList>
           <CurrencyList>¥ JYP</CurrencyList>
+          <CurrencyList>£ GBP</CurrencyList>
         </DropdownUl> 
     </Wrapper>
 
