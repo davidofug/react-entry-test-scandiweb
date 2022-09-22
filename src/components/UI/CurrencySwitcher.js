@@ -51,40 +51,60 @@ const DropdownUl = styled.ul`
     font-weight:${FONTS.WEIGHTS.LARGEST};
     line-height:28.8px;
     transition:transform 0.2s;
-    &:hover{
+    &:hover {
       transform:rotateZ(180deg);
     }
 `
 
 const CurrencyList = styled.li`
   display:block;
+  margin-top:2px;
+  width:100px;
 `
 export default class CurrencySwitcher extends Component {
    constructor(){
     super()
-
+    this.wrapper = React.createRef();
     this.state = {
       currencySwitch: false
     }
     
    }
 
+  componentDidMount() {
+      document.addEventListener("mousedown", this.handleClickOutside);
+   }
+
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
+  };
+
   toggleCurrencySwitcher = () => {
     this.setState({currencySwitch: !this.state.currencySwitch});
-  }
+  };
 
+  handleClickOutside = (event) => {
+    if (
+      this.wrapper.current && !this.wrapper.current.contains(event.target)
+    ) {
+      this.setState({
+        currencySwitch: false,
+      });
+    }
+  };
+  
   render() {
     
     return (
-    <Wrapper onClick={this.toggleCurrencySwitcher}>
+    <Wrapper ref={this.wrapper} onClick={this.toggleCurrencySwitcher}>
         <CurrencySymbol>$</CurrencySymbol>
       <SelectWrapper>  
           <ChevronIcon src = {ChevrondownIconPath} alt ='Rotating-Chevron'></ChevronIcon>
       </SelectWrapper>
        <DropdownUl $currencyState= {this.state.currencySwitch}>
-          <CurrencyList>USD</CurrencyList>
-          <CurrencyList>EUR</CurrencyList>
-          <CurrencyList>JYP</CurrencyList>
+          <CurrencyList>$ USD</CurrencyList>
+          <CurrencyList>€ EUR</CurrencyList>
+          <CurrencyList>ꑇ JYP</CurrencyList>
         </DropdownUl> 
     </Wrapper>
 
