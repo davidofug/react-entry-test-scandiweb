@@ -3,6 +3,7 @@ import styled,{css} from 'styled-components/macro'
 import ChevrondownIconPath from '../../assets/icons/chevrondown.png'
 import { COLORS,FONTS } from 'components/constants'
 const Wrapper = styled.div`
+      /* display:inline-block; */
       position: relative;
       cursor: pointer;
       padding:0 10px;
@@ -20,6 +21,7 @@ const SelectWrapper = styled.span`
 const DropdownUl = styled.ul`
     position:absolute;
     padding-top:4px;
+    margin-top:10px;
     background: #FFF;
     ${props => {return props.$currencyState ?
       css`
@@ -33,7 +35,7 @@ const DropdownUl = styled.ul`
     >li{
       display:block;
       list-style-type: none;
-      padding:10px;
+      padding:8px;
       text-decoration:none;
       font-family:${FONTS.FAMILIES.RALEWAY};
       font-size:${FONTS.SIZES.EIGHTEEN};
@@ -56,20 +58,19 @@ const DropdownUl = styled.ul`
     }
 `
 
-const CurrencyList = styled.li`
-  display:block;
-  margin-top:2px;
-  width:100px;
-`
+  const CurrencyList = styled.li`
+    display:block;
+    text-align:center;
+    margin-top:2px;
+    width:90px;
+  `
 export default class CurrencySwitcher extends Component {
    constructor(){
-    super()
-    this.wrapper = React.createRef();
-    this.state = {
+      super()
+        this.wrapper = React.createRef();
+        this.state = {
       currencySwitch: false
-    }
-    
-   }
+    }}
 
   componentDidMount() {
       document.addEventListener("mousedown", this.handleClickOutside);
@@ -104,7 +105,7 @@ export default class CurrencySwitcher extends Component {
        <DropdownUl $currencyState= {this.state.currencySwitch}>
           <CurrencyList>$ USD</CurrencyList>
           <CurrencyList>€ EUR</CurrencyList>
-          <CurrencyList>ꑇ JYP</CurrencyList>
+          <CurrencyList>¥ JYP</CurrencyList>
         </DropdownUl> 
     </Wrapper>
 

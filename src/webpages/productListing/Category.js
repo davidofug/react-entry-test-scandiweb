@@ -4,7 +4,6 @@ import {COLORS} from '../../components/constants'
 
 const CategoryLayout = styled.main`
 box-sizing:border-box;
-background-color: #E5E5E5;
 color:${COLORS.BLACK};
 max-height:1513px;
 max-width:1440px;
