@@ -58,26 +58,33 @@ const DropdownUl = styled.ul`
     }
 `
 
-  const CurrencyList = styled.li`
+  const ListItem = styled.li`
     display:block;
     text-align:center;
     margin-top:2px;
     width:90px;
+    background: ${props => props.$bg};
+
   `
 export default class CurrencySwitcher extends Component {
    constructor(){
       super()
         this.wrapper = React.createRef();
+        this.currencyItem =React.createRef();
         this.state = {
-      currencySwitch: false
+          currencySwitch: false,
+          selectedCurrency: '$'
     }}
 
   componentDidMount() {
       document.addEventListener("mousedown", this.handleClickOutside);
+      document.addEventListener("mousedown", this.handleSelectedCurrency)
    }
 
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
+    document.removeEventListener("mousedown", this.handleSelectedCurrency)
+
   };
 
   toggleCurrencySwitcher = () => {
@@ -93,20 +100,36 @@ export default class CurrencySwitcher extends Component {
       });
     }
   };
+
+  handleSelectedCurrency = (event) => {
+    if(event.target.classList.contains('currency-item')) {
+      const currency = event.target?.innerText
+      const currencyParts = currency.split(' ')
+      const symbol = currencyParts[0]
+      // const name = currencyParts[1]
+
+      this.setState({
+        selectedCurrency: symbol
+      })
+
+      console.log(symbol)
+    }
+
+  }
   
   render() {
     
     return (
     <Wrapper ref={this.wrapper} onClick={this.toggleCurrencySwitcher}>
-        <CurrencySymbol>$</CurrencySymbol>
+        <CurrencySymbol>{this.state.selectedCurrency}</CurrencySymbol>
       <SelectWrapper>  
           <ChevronIcon src = {ChevrondownIconPath} alt ='Rotating-Chevron'></ChevronIcon>
       </SelectWrapper>
        <DropdownUl $currencyState= {this.state.currencySwitch}>
-          <CurrencyList>$ USD</CurrencyList>
-          <CurrencyList>€ EUR</CurrencyList>
-          <CurrencyList>¥ JYP</CurrencyList>
-          <CurrencyList>£ GBP</CurrencyList>
+          <ListItem className="currency-item" $bg={this.state.selectedCurrency === '$' ? COLORS.BACKGROUND.GRAY : ''}>$ USD</ListItem>
+          <ListItem className="currency-item" $bg={this.state.selectedCurrency === '€' ? COLORS.BACKGROUND.GRAY : ''}>€ EUR</ListItem>
+          <ListItem className="currency-item" $bg={this.state.selectedCurrency === '¥' ? COLORS.BACKGROUND.GRAY : ''}>¥ JYP</ListItem>
+          <ListItem className="currency-item" $bg={this.state.selectedCurrency === '£' ? COLORS.BACKGROUND.GRAY : ''}>£ GBP</ListItem>
         </DropdownUl> 
     </Wrapper>
 
