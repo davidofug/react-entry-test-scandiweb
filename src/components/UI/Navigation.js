@@ -4,6 +4,7 @@
   import Actions from './Actions'
   import{NavLink} from 'react-router-dom'
   import {COLORS,FONTS} from '../constants'
+  import data from '../../../src/data.json'
   const Nav = styled.nav`
     display:flex;
     align-items:center;
@@ -37,15 +38,28 @@
   `
 
   export default class Navigation extends Component {
-    render() {
+    constructor(props){
+      super(props)
+      console.log(data.categories)
+      this.state ={
+        categories: [],
+      }
+
+    }
+    componentDidMount(){
+      this.setState({categories:data.categories})
+    }
+
+      render() {
       return (
       <>
         <Nav>
-        { /* <NavItems> */}
-            <NavItem to = '/'>Women</NavItem>
-            <NavItem to = '/categorypage'>Men</NavItem>
-            <NavItem to = '/productdetails'>Kids</NavItem>
-           { /* </NavItems> */}
+             
+        { this.state.categories.map(category => <NavItem to ={ `/${category.toLowerCase()}`}>{category}</NavItem> )}
+           
+           
+           
+        
           </Nav>
         <LogoView>
           <Logo/>

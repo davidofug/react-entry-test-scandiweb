@@ -1,4 +1,5 @@
 {
+    "categories": ["Women", "Men", "Kids"],
     "products": [
       {
         "_id": "dress1",
