@@ -55,7 +55,7 @@
       <>
         <Nav>
              
-        { this.state.categories.map(category => <NavItem to ={ `/${category.toLowerCase()}`}>{category}</NavItem> )}
+        { this.state.categories.map(category => <NavItem  to ={ `/${category.toLowerCase()}`}>{category}</NavItem> )}
            
            
            
