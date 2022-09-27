@@ -4,6 +4,7 @@
   import Actions from './Actions'
   import{NavLink} from 'react-router-dom'
   import {COLORS,FONTS} from '../constants'
+  // import withRouter from '../utils/withRouter'
   import data from '../../../src/data.json'
   const Nav = styled.nav`
     display:flex;
@@ -37,11 +38,10 @@
     flex:1;
   `
 
-  export default class Navigation extends Component {
+  class Navigation extends Component {
     constructor(props){
       super(props)
-      console.log(data.categories)
-      this.state ={
+       this.state ={
         categories: [],
       }
 
@@ -55,12 +55,9 @@
       <>
         <Nav>
              
-        { this.state.categories.map(category => <NavItem  to ={ `/${category.toLowerCase()}`}>{category}</NavItem> )}
-           
-           
-           
+        { this.state.categories.map((category,index) => <NavItem key ={index.toString()} to ={ `/${category.toLowerCase()}`}>{category}</NavItem> )}
         
-          </Nav>
+      </Nav>
         <LogoView>
           <Logo/>
         </LogoView>
@@ -73,3 +70,4 @@
     }
   }
 
+export default Navigation

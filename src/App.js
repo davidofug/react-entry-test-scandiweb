@@ -3,9 +3,12 @@ import React, { Component } from 'react'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
+import ElementWrapper from "./components/utils/withRouter";
 import HeaderWrapper from './components/Header'
-import Category from 'webpages/productListing/Category';
+// import Category from 'webpages/productListing/Category';
 import GlobalStyle from 'components/GlobalStyles';
+import ProductDetails from 'webpages/products/ProductDetails';
+import Category from 'webpages/productListing/Category';
 
 // import Logo from './components/UI/Logo'
 // import CartIcon from './components/UI/CartIcon'
@@ -14,7 +17,6 @@ const apolloClient = new ApolloClient({
   uri: 'https://localhost:4000/graphql',
   cache: new InMemoryCache()
 });
-
  class App extends Component {
   render() {
     return (
@@ -29,10 +31,12 @@ const apolloClient = new ApolloClient({
       <CartIcon/>
       <CircleCartIcon/>
        */}
+       
+    
       <Routes>
-       <Route path ='categorypage'        element ={<Category/>}/>
-        <Route path ='productdisplaypage'  element ={<h3>hallo</h3>}/>
-        <Route path ='cartPage'            element ={<h4>Fine</h4>}/>
+       <Route path ='/:category'      element = {<ElementWrapper routeElement ={Category}/>}/>
+        <Route path ='productdetails'  element ={<h3>hallo</h3>}/>
+        <Route path ='cartPage'        element ={<h4>Fine</h4>}/>
       </Routes>
       </ApolloProvider>
       </BrowserRouter>
@@ -41,4 +45,15 @@ const apolloClient = new ApolloClient({
   }
 }
 
+
+
 export default App
+
+
+// export const AppWithRouter = () => {
+//   const navigation = useNavigate();
+//   return (
+//    <App navigation = {navigation}/>
+//   )
+// }
+
