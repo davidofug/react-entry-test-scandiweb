@@ -19,7 +19,7 @@ export default class Category extends Component {
     render() {
     return (
       <CategoryLayout>
-      <img src={IMAGE} alt ='me'/>
+       <h3>Category name</h3>
       </CategoryLayout>
     )
   }
