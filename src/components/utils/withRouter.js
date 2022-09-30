@@ -1,12 +1,13 @@
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const ElementWrapper = (props) => {
   const params = useParams();
-  const locations = useLocation();
+  const location = useLocation();
+  const navigate = useNavigate()
   const Element = props.routeElement;
 
-  return <Element params={params} locations={locations} {...props} />;
+  return <Element params={params} navigate={navigate} location={location} {...props} />;
 };
 
 export default ElementWrapper;

@@ -7,8 +7,9 @@ import ElementWrapper from "./components/utils/withRouter";
 import HeaderWrapper from './components/Header'
 // import Category from 'webpages/productListing/Category';
 import GlobalStyle from 'components/GlobalStyles';
-import ProductDetails from 'webpages/products/ProductDetails';
+// import ProductDetails from 'webpages/products/ProductDetails';
 import Category from 'webpages/productListing/Category';
+
 
 // import Logo from './components/UI/Logo'
 // import CartIcon from './components/UI/CartIcon'
@@ -17,27 +18,31 @@ const apolloClient = new ApolloClient({
   uri: 'https://localhost:4000/graphql',
   cache: new InMemoryCache()
 });
+
  class App extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  componentDidMount(){
+    // console.log(this.props.data)
+  }
+
   render() {
+    
     return (
       <>
-      <GlobalStyle></GlobalStyle>
+      <GlobalStyle/>
       <BrowserRouter>
       <ApolloProvider client={apolloClient}>
       {console.log(apolloClient)}
     
-      <HeaderWrapper/>
-      {/* <Logo/>
-      <CartIcon/>
-      <CircleCartIcon/>
-       */}
-       
-    
-      <Routes>
-       <Route path ='/:category'      element = {<ElementWrapper routeElement ={Category}/>}/>
-        <Route path ='productdetails'  element ={<h3>hallo</h3>}/>
-        <Route path ='cartPage'        element ={<h4>Fine</h4>}/>
-      </Routes>
+        <HeaderWrapper/>
+          <Routes>
+            <Route path ='/:category' element={<ElementWrapper data={this.props.data} routeElement={Category}/>}/>
+            <Route path ='productdetails' element={<h3>hallo</h3>}/>
+            <Route path ='cartPage' element ={<h4>Fine</h4>}/>
+        </Routes>
       </ApolloProvider>
       </BrowserRouter>
       </>
@@ -48,12 +53,4 @@ const apolloClient = new ApolloClient({
 
 
 export default App
-
-
-// export const AppWithRouter = () => {
-//   const navigation = useNavigate();
-//   return (
-//    <App navigation = {navigation}/>
-//   )
-// }
 

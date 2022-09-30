@@ -6,8 +6,9 @@ import Navigation from './UI/Navigation'
 const HeaderWrapper =styled.header`
 display:flex;
 justify-content:space-between;
-padding-left:32px;
-padding-right:32px;
+height:80px;
+width:86%;
+margin:0 auto;
 background:${COLORS.WHITE}
 
 `
