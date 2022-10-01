@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components/macro'
 import {COLORS, FONTS} from '../../components/constants'
-// import IMAGE from '../../assets/imgs/dress2.jpg'
   const CategoryLayout = styled.main`
     box-sizing:border-box;
     color:${COLORS.BLACK};
@@ -17,26 +16,23 @@ import {COLORS, FONTS} from '../../components/constants'
     font-style: normal;
     line-height:67.2px;
     text-transform:capitalize;
-    padding-top:40px;
-    padding-bottom:60px;
+    padding-top:30px;
+    padding-bottom:30px;
 `
   const ProductList = styled.div`
    display:flex;
-   gap:30px;
+   flex-wrap:wrap;
+   gap:20px;
+
 
 
   `
   export default class Category extends Component {
-  //  constructor(props){
-  //   super(props)
-  // }
-
-  state = {
+    state = {
     products: this.props.data.products,
     categoryProducts:[],
     categories: ""
   }
-
   getProductsOfCategory = () =>{
     let category = this.props.location.pathname.replace('/',"")
     category = category.charAt(0).toUpperCase() + category.slice(1);
