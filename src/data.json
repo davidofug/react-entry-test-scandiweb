@@ -59,7 +59,7 @@
         "title": "Frill mini dress in yellow polka dot",
         "description": "This is for all the latest trends, no matter who you are, where you’re from and what you’re up to. Exclusive to ASOS, our universal brand is here for you, and comes in all our fit ranges: ASOS Curve, Tall, Petite and Maternity. Created by us, styled by you.",
         "availableSizes": ["X", "L", "XL"],
-        "categories":["Women"],
+        "categories":["Kids"],
         "EUR": 22.5,
         "USD": 23.0,
         "GBP": 24.5,
@@ -78,6 +78,45 @@
         "GBP": 12.0,
         "prices": [{"EUR":10.5}, {"USD": 11.0}, {"GBP": 12.0}],
         "price": {"EUR":10.5,"USD": 11.0,"GBP": 12.0}
+      },
+      {
+        "_id": "dress6",
+        "image": "/images/dress6.jpg",
+        "title": "Midi tea dress in blue and red spot",
+        "description": "This is for all the latest trends, no matter who you are, where you’re from and what you’re up to. Exclusive to ASOS, our universal brand is here for you, and comes in all our fit ranges: ASOS Curve, Tall, Petite and Maternity. Created by us, styled by you.",
+        "availableSizes": ["XL", "XXL"],
+        "categories":["Women"],
+        "EUR": 10.5,
+        "USD": 11.0,
+        "GBP": 12.0,
+        "prices": [{"EUR":10.5}, {"USD": 11.0}, {"GBP": 12.0}],
+        "price": {"EUR":10.5,"USD": 11.0,"GBP": 12.0}
+      },
+      {
+        "_id": "dress5",
+        "image": "/images/dress5.jpg",
+        "title": "Frill mini dress in yellow polka dot",
+        "description": "This is for all the latest trends, no matter who you are, where you’re from and what you’re up to. Exclusive to ASOS, our universal brand is here for you, and comes in all our fit ranges: ASOS Curve, Tall, Petite and Maternity. Created by us, styled by you.",
+        "availableSizes": ["X", "L", "XL"],
+        "categories":["Women"],
+        "EUR": 22.5,
+        "USD": 23.0,
+        "GBP": 24.5,
+        "prices": [{"EUR":22.5}, {"USD": 23.0}, {"GBP": 24.5}],
+        "price": {"EUR":22.5,"USD": 23.0,"GBP": 24.5}
+      },
+      {
+        "_id": "dress1",
+        "image": "/images/dress1.jpg",
+        "title": "Midi whitedress with shirring detail",
+        "description": "This is for all the latest trends, no matter who you are, where you’re from and what you’re up to. Exclusive to ASOS, our universal brand is here for you, and comes in all our fit ranges: ASOS Curve, Tall, Petite and Maternity. Created by us, styled by you.",
+        "availableSizes": ["X", "L", "XL", "XXL"],
+        "categories":["Men"],
+        "EUR": 21.9,
+        "USD": 20.9,
+        "GBP": 19.5,
+        "prices": [{"EUR":21.9}, {"USD": 20.9}, {"GBP": 19.5}],
+        "price": {"EUR":21.9,"USD": 20.9,"GBP": 19.5}
       }
     ]
   }

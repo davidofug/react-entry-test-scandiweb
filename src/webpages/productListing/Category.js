@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import styled from 'styled-components/macro'
 import {COLORS, FONTS} from '../../components/constants'
+import {Link} from 'react-router-dom'
+import ProductDetails from 'webpages/products/ProductDetails'
+
   const CategoryLayout = styled.main`
     box-sizing:border-box;
     color:${COLORS.BLACK};
@@ -21,22 +24,30 @@ import {COLORS, FONTS} from '../../components/constants'
 `
   const ProductList = styled.div`
    display:flex;
+   padding: 16px;
    flex-wrap:wrap;
-   gap:20px;
+   gap:16px;
 
 
 
   `
+
+  
+  const StyledLink  = styled(Link)`
+  text-decoration:none;
+  color:${COLORS.BLACK}
+  `
   export default class Category extends Component {
     state = {
     products: this.props.data.products,
+    category: "",
     categoryProducts:[],
     categories: ""
   }
   getProductsOfCategory = () =>{
     let category = this.props.location.pathname.replace('/',"")
     category = category.charAt(0).toUpperCase() + category.slice(1);
-      // this.setState({category:category})
+    this.setState({category: category.toLowerCase()})
     const products = this.state.products.filter((product)=> product.categories.includes(category))
     // console.log(products)
     this.setState({categoryProducts:[...products]})
@@ -70,7 +81,7 @@ import {COLORS, FONTS} from '../../components/constants'
       
       <CategoryLayout>
        <CategoryName >{this.props.location.pathname.replace('/', "")}</CategoryName>
-        <ProductList> {this.state.categoryProducts.map((product,index) => <div key ={index.toString()}>
+       { /*<ProductList> {this.state.categoryProducts.map((product,index) => <div key ={index.toString()}>
         <figure>
         <img src ={product.image} width='356' height ='338' alt={product.title}/>
         </figure>
@@ -78,8 +89,35 @@ import {COLORS, FONTS} from '../../components/constants'
         <p><strong>${product.price.USD}</strong></p>
         
         
-        </div>)}</ProductList>
+    </div>)}</ProductList>*/}
+
+        <ProductList> {
+          this.state.categoryProducts.map((product,index) => {
+
+            return <ProductItem key={index.toString()} id={index} product={product} category={this.state.category} />
+
+          })
+        }
+        </ProductList>
        </CategoryLayout>
+    )
+  }
+}
+
+export class ProductItem extends Component {
+  
+  render(){
+    
+    const {id, product, category} = this.props
+   
+    return (
+        <StyledLink to={`/${category}/${id}`}>
+          <figure>
+            <img src ={product.image} width='356' height ='338' alt={product.title}/>
+          </figure>
+          <p>{product.title}</p>
+          <p><strong>${product.price.USD}</strong></p>
+        </StyledLink>
     )
   }
 }

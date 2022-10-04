@@ -62,7 +62,10 @@ const DropdownUl = styled.ul`
     display:block;
     text-align:center;
     margin-top:2px;
-    width:90px;
+    height:45px;
+    width:114px;
+    left: 1248px;
+    top:127px;
     background: ${props => props.$bg};
 
   `

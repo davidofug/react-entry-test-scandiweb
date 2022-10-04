@@ -9,6 +9,7 @@ import HeaderWrapper from './components/Header'
 import GlobalStyle from 'components/GlobalStyles';
 // import ProductDetails from 'webpages/products/ProductDetails';
 import Category from 'webpages/productListing/Category';
+import ProductDetails from 'webpages/products/ProductDetails';
 
 
 // import Logo from './components/UI/Logo'
@@ -40,6 +41,7 @@ const apolloClient = new ApolloClient({
         <HeaderWrapper/>
           <Routes>
             <Route path ='/:category' element={<ElementWrapper data={this.props.data} routeElement={Category}/>}/>
+            <Route path ='/:category/:id' element={<ProductDetails data={this.props.data} />} />
             <Route path ='productdetails' element={<h3>hallo</h3>}/>
             <Route path ='cartPage' element ={<h4>Fine</h4>}/>
         </Routes>
