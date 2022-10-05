@@ -3,14 +3,16 @@ import styled from 'styled-components/macro'
 import {COLORS, FONTS} from '../../components/constants'
 import CircleCartIcon from '../../assets/icons/Circle-Cart-Icon.png'
 import {Link} from 'react-router-dom'
-
 const CategoryLayout = styled.main`
     box-sizing:border-box; 
     color:${COLORS.BLACK};
+    width:86%;
+    margin:0 auto;
     min-height:100%;
-    width:1440px;
-    padding-left:100px;
-    padding-right:102px;
+    /* width:1440px; */
+
+    /* padding-left:100px;
+    padding-right:102px; */
 `
 const CategoryName = styled.h1`
     font-family:${FONTS.FAMILIES.RALEWAY};
@@ -25,29 +27,31 @@ const CategoryName = styled.h1`
 `
 const ProductList = styled.div`
     position:relative;
-    gap:10px;
+    gap:20px;
     display:flex;
+    /* padding:16px; */
     flex-direction:row;
     flex-wrap:wrap;
     background-color:${COLORS.WHITE}
   `
-  
-const StyledLink = styled(Link)`
+  const StyledLink = styled(Link)`
     display:flex;
     flex-direction:column;
     box-sizing:border-box; 
-    width:386px;
+    /* width:386px; */
     height:444px;
     cursor:pointer;
     padding:16px;
     position:relative;
     text-decoration:none;
+    border-radius:5px;
     color:${COLORS.BLACK};
     &:hover {
       box-shadow: 0px 4px 35px 
       rgba(168, 172, 176, 0.19);
-      transform:scaleY(1);
-    }
+      transition:box-shadow 400ms ease-in-out;
+      }
+
     &::after{
         content:'';
         opacity:0;
@@ -58,17 +62,24 @@ const StyledLink = styled(Link)`
         right: 45px;
         width: 52px;
         height:52px; 
+        transition:opacity 500ms ease-in-out;
+        z-index:15;
     }
     &:hover::after{
         opacity:1;
-        transition:ease-in-out;
-        z-index:15;
+       
     }
  
+`
+const StyledFigure = styled.figure`
+ 
+
 `
 const ProductImage = styled.img`
     height:354px;
     width: 330px;
+    object-fit:cover;
+    
   
 `
 const Title = styled.h4`
@@ -151,7 +162,9 @@ export default class Category extends Component {
       const {id,product,category} = this.props
        return (
         <StyledLink to={`/${category}/${id}`}>
+        <StyledFigure>
           <ProductImage src={product.image} alt={product.title}/> 
+         </StyledFigure>
             <Title>{product.title}</Title>
              <PriceTag><strong>${product.price.USD}</strong></PriceTag>
        </StyledLink>
