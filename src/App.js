@@ -47,6 +47,7 @@ const apolloClient = new ApolloClient({
         </Routes>
       </ApolloProvider>
       </BrowserRouter>
+
       </>
     )
   }

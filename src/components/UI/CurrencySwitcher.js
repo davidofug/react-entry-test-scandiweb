@@ -65,7 +65,7 @@ const DropdownUl = styled.ul`
     height:45px;
     width:114px;
     left: 1248px;
-    top:127px;
+    top:12px;
     background: ${props => props.$bg};
 
   `

@@ -3,7 +3,7 @@ import styled from 'styled-components/macro'
 import{COLORS} from './constants'
 import Navigation from './UI/Navigation'
 
-const HeaderWrapper =styled.header`
+const HeaderWrapper = styled.header`
 display:flex;
 justify-content:space-between;
 height:80px;
