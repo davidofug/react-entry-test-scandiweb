@@ -9,10 +9,7 @@ const CategoryLayout = styled.main`
     width:86%;
     margin:0 auto;
     min-height:100%;
-    /* width:1440px; */
-
-    /* padding-left:100px;
-    padding-right:102px; */
+    
 `
 const CategoryName = styled.h1`
     font-family:${FONTS.FAMILIES.RALEWAY};
@@ -29,7 +26,6 @@ const ProductList = styled.div`
     position:relative;
     gap:20px;
     display:flex;
-    /* padding:16px; */
     flex-direction:row;
     flex-wrap:wrap;
     background-color:${COLORS.WHITE}
@@ -38,7 +34,6 @@ const ProductList = styled.div`
     display:flex;
     flex-direction:column;
     box-sizing:border-box; 
-    /* width:386px; */
     height:444px;
     cursor:pointer;
     padding:16px;
@@ -59,7 +54,7 @@ const ProductList = styled.div`
         background-size:cover;
         position:absolute;
         bottom:46px;
-        right: 45px;
+        right: 20px;
         width: 52px;
         height:52px; 
         transition:opacity 500ms ease-in-out;
@@ -73,7 +68,6 @@ const ProductList = styled.div`
 `
 const StyledFigure = styled.figure`
  
-
 `
 const ProductImage = styled.img`
     height:354px;
@@ -97,16 +91,6 @@ const PriceTag = styled.h5`
     font-size: 18px;
     color: #1D1F22;
 `
-/* const AddToCartIcon = styled.img`
-    width: 52px;
-    height:52px;
-    display:none;
-    position:absolute;
-    bottom:48px;
-    right: 44px;
-    
-` */
-
 export default class Category extends Component {
     state = {
     products: this.props.data.products,
@@ -114,8 +98,9 @@ export default class Category extends Component {
     categoryProducts:[],
     categories: ""
   }
+
   getProductsOfCategory = () =>{
-    let category = this.props.location.pathname.replace('/',"")
+    let category = this.props.default === 'default' ? 'women' : this.props.location?.pathname.replace('/',"")
     category = category.charAt(0).toUpperCase() + category.slice(1);
     this.setState({category: category.toLowerCase()})
     const products = this.state.products.filter((product)=> product.categories.includes(category))
@@ -129,7 +114,7 @@ export default class Category extends Component {
   }
   shouldComponentUpdate(nextProps, prevState){
     // console.log(prevState)
-    const category = nextProps.params?.category
+    const category = nextProps.params?.category || 'women'
     let newCategory = category.charAt(0).toUpperCase() + category.slice(1);
     // console.log(newCategory)
     const products = this.state.products.filter((product)=> product.categories.includes(newCategory))
@@ -145,7 +130,7 @@ export default class Category extends Component {
      return (
       
    <CategoryLayout>
-    <CategoryName >{this.props.location.pathname.replace('/', "")}</CategoryName>
+    <CategoryName >{this.props.location?.pathname.replace('/', "") || "Women"}</CategoryName>
            <ProductList> {
           this.state.categoryProducts.map((product,index) => {
             return <ProductItem key={index.toString()} id={index} product={product} category={this.state.category} 

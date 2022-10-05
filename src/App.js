@@ -40,6 +40,7 @@ const apolloClient = new ApolloClient({
     
         <HeaderWrapper/>
           <Routes>
+            <Route path ='/' element={<Category data={this.props.data} default="default" />}/>
             <Route path ='/:category' element={<ElementWrapper data={this.props.data} routeElement={Category}/>}/>
             <Route path ='/:category/:id' element={<ProductDetails data={this.props.data} />} />
             <Route path ='productdetails' element={<h3>hallo</h3>}/>
