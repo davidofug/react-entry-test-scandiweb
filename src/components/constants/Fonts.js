@@ -3,6 +3,7 @@ export const FONTS = {
         RALEWAY:'Raleway',
         SOURCE_SANS_PRO:'Source Sans Pro',
         ROBOTO:'Roboto',
+        ROBOTO: 'Roboto Condensed'
     },
     WEIGHTS: {
         LARGEST:700,

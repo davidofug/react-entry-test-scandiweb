@@ -10,7 +10,7 @@ const CategoryLayout = styled.main`
     width:86%;
     margin:0 auto;
     min-height:100%;
-        
+         
 `
 const CategoryName = styled.h1`
     font-family:${FONTS.FAMILIES.RALEWAY};

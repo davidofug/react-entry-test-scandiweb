@@ -64,18 +64,25 @@ const Size = styled.span`
 font-family:${FONTS.FAMILIES.ROBOTO};
 font-size:${FONTS.SIZES.TEN};
 border:1px solid ${COLORS.BLACK};
-width:30px;
-height:15px;
+width:32px;
+height:16px;
 display:inline-block;
 margin-right:5px;
 text-align:center;
-padding:4px;
+padding:6px;
 cursor:pointer;
 
 &:hover{
   background-color:${COLORS.BLACK};
   color:${COLORS.WHITE};
 }
+`
+const Price = styled.h3`
+font-family: 'Roboto Condensed';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 18px;
 `
 export default class ProductDetails extends React.Component {
     // constructor(props) {
@@ -118,7 +125,7 @@ export default class ProductDetails extends React.Component {
 
           }</p>
         <h3>Color</h3>
-        <h3>Price:<br/>${PRODUCT.price.USD}</h3>
+        <Price>Price:<br/>${PRODUCT.price.USD}</Price>
 
           <AddToCartBtn>Add To Cart</AddToCartBtn>
           <DescriptionText>

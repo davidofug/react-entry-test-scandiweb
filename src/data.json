@@ -10,7 +10,7 @@
         "description": "This is for all the latest trends, no matter who you are, where you’re from and what you’re up to. Exclusive to ASOS, our universal brand is here for you, and comes in all our fit ranges: ASOS Curve, Tall, Petite and Maternity. Created by us, styled by you.",
         "colors":["red","green","purple"],
         "availableSizes": ["X", "L", "XL", "XXL"],
-        "categories":["Women"],
+        "categories":["Kids"],
         "EUR": 21.9,
         "USD": 20.9,
         "GBP": 19.5,
@@ -26,7 +26,7 @@
         "title": "Midi sundress with ruched front",
         "description": "This is for all the latest trends, no matter who you are, where you’re from and what you’re up to. Exclusive to ASOS, our universal brand is here for you, and comes in all our fit ranges: ASOS Curve, Tall, Petite and Maternity. Created by us, styled by you.",
         "availableSizes": ["X", "M", "L"],
-        "categories":["Women"],
+        "categories":["Men"],
         "EUR": 18.9,
         "USD": 20.9,
         "GBP": 16.5,
@@ -58,7 +58,7 @@
         "title": "cami maxi dress in polka dot",
         "description": "This is for all the latest trends, no matter who you are, where you’re from and what you’re up to. Exclusive to ASOS, our universal brand is here for you, and comes in all our fit ranges: ASOS Curve, Tall, Petite and Maternity. Created by us, styled by you.",
         "availableSizes": ["XL"],
-        "categories":["Women"],
+        "categories":["Men"],
         "EUR": 25.0,
         "USD": 26.0,
         "GBP": 27.5,
@@ -128,6 +128,22 @@
         "GBP": 12.0,
         "prices": [{"EUR":10.5}, {"USD": 11.0}, {"GBP": 12.0}],
         "price": {"EUR":10.5,"USD": 11.0,"GBP": 12.0}
+      },
+      {
+        "_id": "dress3",
+        "image": "/images/dress3.jpg",
+        "gallery":["/images/dress3.jpg","/images/dress3.jpg","/images/dress3.jpg"],
+        "colors":["beige","blue","gray"],
+        "brand": "Forschini",
+        "title": "Midi dress in pink ditsy floral",
+        "description": "This is for all the latest trends, no matter who you are, where you’re from and what you’re up to. Exclusive to ASOS, our universal brand is here for you, and comes in all our fit ranges: ASOS Curve, Tall, Petite and Maternity. Created by us, styled by you.",
+        "availableSizes": ["X", "M", "L"],
+        "categories":["Kids"],
+        "EUR": 12.9,
+        "USD": 13.9,
+        "GBP": 14.5,
+        "prices": [{"EUR":12.9}, {"USD": 13.9}, {"GBP": 14.5}],
+        "price": {"EUR":12.9,"USD": 13.9,"GBP": 14.5}
       }
       
       
