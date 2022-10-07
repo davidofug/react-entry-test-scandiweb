@@ -23,6 +23,7 @@ const DropdownUl = styled.ul`
     padding-top:4px;
     margin-top:10px;
     background: #FFF;
+    z-index:100;
     ${props => {return props.$currencyState ?
       css`
         display:block;
@@ -62,10 +63,10 @@ const DropdownUl = styled.ul`
     display:block;
     text-align:center;
     margin-top:2px;
-    height:45px;
+    height:36px;
     width:114px;
     left: 1248px;
-    top:12px;
+    /* top:12px; */
     background: ${props => props.$bg};
 
   `

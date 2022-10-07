@@ -5,11 +5,12 @@ import CircleCartIcon from '../../assets/icons/Circle-Cart-Icon.png'
 import {Link} from 'react-router-dom'
 const CategoryLayout = styled.main`
     box-sizing:border-box; 
+    overflow: hidden; 
     color:${COLORS.BLACK};
     width:86%;
     margin:0 auto;
     min-height:100%;
-    
+        
 `
 const CategoryName = styled.h1`
     font-family:${FONTS.FAMILIES.RALEWAY};
@@ -18,23 +19,25 @@ const CategoryName = styled.h1`
     font-style: normal;
     line-height:67.2px;
     text-transform:capitalize;
-    margin-bottom:60px;
+    margin-bottom:80px;
     padding-top:  20px;
     padding-bottom:30px;
 `
 const ProductList = styled.div`
     position:relative;
-    gap:20px;
+    gap:24px;
     display:flex;
     flex-direction:row;
     flex-wrap:wrap;
-    background-color:${COLORS.WHITE}
+    background-color:${COLORS.WHITE};
+    padding-bottom:40px;
   `
   const StyledLink = styled(Link)`
     display:flex;
     flex-direction:column;
     box-sizing:border-box; 
     height:444px;
+    /* width:386px; */
     cursor:pointer;
     padding:16px;
     position:relative;
@@ -96,7 +99,8 @@ export default class Category extends Component {
     products: this.props.data.products,
     category: "",
     categoryProducts:[],
-    categories: ""
+    categories: "",
+    gallery:[],
   }
 
   getProductsOfCategory = () =>{

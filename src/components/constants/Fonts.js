@@ -19,6 +19,7 @@ export const FONTS = {
         SIXTEEN:'16px',
         FOURTEEN: '14px',
         TWELVE:'12px',
+        TEN: '10px',
     }
 
 }
