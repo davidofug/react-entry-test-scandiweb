@@ -108,7 +108,7 @@ export default class Category extends Component {
     category = category.charAt(0).toUpperCase() + category.slice(1);
     this.setState({category: category.toLowerCase()})
     const products = this.state.products.filter((product)=> product.categories.includes(category))
-    // console.log(products)
+    console.log(products)
     this.setState({categoryProducts:[...products]})
         
   }
