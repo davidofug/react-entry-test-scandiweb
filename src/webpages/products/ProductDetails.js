@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
-import ProductSample from "../../../src/assets/icons/product-image.png";
+// import ProductSample from "../../../src/assets/icons/product-image.png";
 
 const ProductDisplayLayout = styled.section`
   width: 86%;
@@ -15,15 +15,33 @@ const ProductDisplayLayout = styled.section`
   font-size: ${FONTS.SIZES.TWENTY_FOUR};
 `;
 
-const ProductImage = styled.img`
+const ProductImage = styled.div`
+  height:511px;
+  height:610px;
+  object-fit:cover;
   flex: 3;
+  
+  ;
+ 
+   > img {
+    width:100%;
+    height:100%;
+    /* object-fit: cover; */
+  }
 `;
 
 const ProductInfo = styled.article`
   flex: 2;
 `;
 const Gallery = styled.aside`
-  flex: 1;
+  display:flex;
+  align-items:flex-end;
+  flex-direction:column;
+   width:80px;
+>img {
+  margin-bottom: 5px;
+  cursor:pointer;
+}
 `;
 
 const DescriptionText = styled.div`
@@ -46,20 +64,20 @@ const AddToCartBtn = styled.button`
   color: ${COLORS.WHITE};
   text-transform: uppercase;
 `;
-const ProductTile = styled.aside`
-  width: 79px;
-  height: 80px;
-`;
-const Size = styled.h3`
+// const ProductTile = styled.aside`
+//   width: 79px;
+//   height: 80px;
+// `;
+const Size = styled.span`
   font-family: ${FONTS.FAMILIES.ROBOTO};
   font-size: ${FONTS.SIZES.TEN};
   border: 1px solid ${COLORS.BLACK};
-  width: 32px;
-  height: 16px;
+  width: 40px;
+  height: 28px;
   display: inline-block;
-  margin-right: 5px;
+  margin-right:4px;
   text-align: center;
-  padding: 6px;
+  line-height:28px;
   cursor: pointer;
   
 
@@ -68,7 +86,6 @@ const Size = styled.h3`
     color: ${COLORS.WHITE};
   }
 `
-
 const ColorSwatch = styled.div`
 margin-top:18px;
 > h3{
@@ -78,13 +95,14 @@ margin-top:18px;
   margin-bottom:3px;
 }
 >span{
-  height:2px;
-  margin: 2px 2px;
-	padding: 2px 16px;
-  border:1px solid gray;
+  display:inline-block;
+  height:36px;
+  width:36px;
+  margin-right:4px;
+	border:1px solid gray;
 	border-radius: 1px;
+  cursor:pointer;
 }
-
 `
 const Price = styled.h3`
   font-family: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
@@ -98,15 +116,24 @@ const Price = styled.h3`
   }
 `;
 export default class ProductDetails extends React.Component {
-  constructor(props) {
-    super(props)
-  this.ImageSlider  = React.createRef;
-  
+  // constructor(props) {
+  //   super(props)
+  state ={
+    selectedColor : '',
+    selectedSize : '',
+    galleryImagePosition: 0
   }
+
+  changeImage = position => {
+  this.setState({galleryImagePosition: position})
+  }
+  // }
+
+ 
   render() {
     const LOCATION_PARTS = window.location.pathname.split("/");
     // console.log(location)
-    // console.log(this.props.data)
+    // console.log(this.props.data.products.)
     const [, category, id] = LOCATION_PARTS;
     // console.log(category, id)
     const CATEGORY_NAME = category.charAt(0).toUpperCase() + category.slice(1);
@@ -119,29 +146,48 @@ export default class ProductDetails extends React.Component {
     return (
       <>
         <ProductDisplayLayout>
-          <Gallery ref={this.ImgSlider}>
-            <ProductTile />
-            {/* {
-          this.state.PRODUCT.gallery?.map((image,index) => {
-            return <ProductTile key= {index.toString()} id={index} gallery={image}  
-          />
-        }
-  )} */}
+          <Gallery>
+            {
+              PRODUCT.gallery.map((image,index) => 
+                <img key={index.toString()} src={image} onClick={() => this.changeImage(index) } width="79" height="80"/>
+              )
+            }
           </Gallery >
 
-          <ProductImage src={ProductSample} alt="chosen-item" />
+          <ProductImage>
+            <img src={PRODUCT.gallery[this.state.galleryImagePosition]} alt="chosen-item" />
+          </ProductImage>
           <ProductInfo>
             <h1>{PRODUCT.title}</h1>
             <h2>{PRODUCT.brand}</h2>
             <h3>Size:</h3>
             <p>
-              {PRODUCT.availableSizes.map((size) => (
-                <Size>{size}</Size>
-              ))}
+              {PRODUCT.availableSizes.map((size) =>( <Size id={size} onClick={(event)=>{ this.setState({selectedSize:event.target.id}) 
+              setTimeout(()=>{
+                 console.log(this.state.selectedSize)
+                 },500)
+                   }} key={size}>{size}</Size>))
+              
+              }
+            
             </p>
             <ColorSwatch>
               <h3>Color:</h3>
-              {PRODUCT.colors.map(color => {return <span key={color} style={{background: color }}></span>
+              {PRODUCT.colors.map(color => {return <span key={color} style={{backgroundColor: color }} 
+                onClick={(event) => {this.setState({selectedColor: event.target.style.backgroundColor})
+                  setTimeout(()=>{
+                    console.log(this.state.selectedColor)
+                  },2000)
+                  
+                }
+              }></span>
+
+                //when the user clicks on a color swatch:
+                //1. Implement an event
+                //2. The event is triggered on Click of the color from the Color Swatch
+                //3. The color is retrieved from the color item that has been clicked
+                //4. Console the color to find out if it's the right color
+                //5. Then store in the appropriate state
               })}
 
             </ColorSwatch>

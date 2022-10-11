@@ -100,18 +100,22 @@ export default class Category extends Component {
     category: "",
     categoryProducts:[],
     categories: "",
-    gallery:[],
+    gallery:'',
   }
 
+   
   getProductsOfCategory = () =>{
-    let category = this.props.default === 'default' ? 'women' : this.props.location?.pathname.replace('/',"")
+    let category = this.props.default === 'default' ? 'Women' : this.props.location?.pathname.replace('/',"")
     category = category.charAt(0).toUpperCase() + category.slice(1);
     this.setState({category: category.toLowerCase()})
     const products = this.state.products.filter((product)=> product.categories.includes(category))
-    console.log(products)
-    this.setState({categoryProducts:[...products]})
+    // console.log(products)
+    this.setState({categoryProducts:[...products]
+    
+    },
+    
+    )}
         
-  }
   componentDidMount() {
   
     this.getProductsOfCategory()
@@ -128,8 +132,12 @@ export default class Category extends Component {
     return true
   }
   componentWillUnmount(){
-    this.setState({category: '',categoryProducts: []})
-  }
+    this.setState({category: '',categoryProducts: []
+  
+  },() =>{
+     console.log(this.state);
+  })}
+  
     render() {
      return (
       
