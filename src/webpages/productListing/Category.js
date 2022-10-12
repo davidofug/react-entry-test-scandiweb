@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components/macro'
 import {COLORS, FONTS} from '../../components/constants'
 import CircleCartIcon from '../../assets/icons/Circle-Cart-Icon.png'
+import {Query} from 'react-apollo'
 import {Link} from 'react-router-dom'
 const CategoryLayout = styled.main`
     box-sizing:border-box; 
@@ -142,6 +143,7 @@ export default class Category extends Component {
      return (
       
    <CategoryLayout>
+    
     <CategoryName >{this.props.location?.pathname.replace('/', "") || "Women"}</CategoryName>
            <ProductList> {
           this.state.categoryProducts.map((product,index) => {
@@ -150,6 +152,7 @@ export default class Category extends Component {
           })
         }
         </ProductList>
+        
    </CategoryLayout>
     )
   }

@@ -11,7 +11,6 @@ import GlobalStyle from 'components/GlobalStyles';
 import Category from 'webpages/productListing/Category';
 import ProductDetails from 'webpages/products/ProductDetails';
 
-
 // import Logo from './components/UI/Logo'
 // import CartIcon from './components/UI/CartIcon'
 // import CircleCartIcon from './components/UI/CircleCartIcon'
@@ -21,11 +20,7 @@ const apolloClient = new ApolloClient({
 });
 
  class App extends Component {
-  constructor(props){
-    super(props)
-  }
-
-  componentDidMount(){
+    componentDidMount(){
     // console.log(this.props.data)
   }
 
