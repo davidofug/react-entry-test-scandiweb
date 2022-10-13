@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components/macro'
 import {COLORS, FONTS} from '../../components/constants'
 import CircleCartIcon from '../../assets/icons/Circle-Cart-Icon.png'
-import {Query} from 'react-apollo'
+// import {Query} from 'react-apollo'
 import {Link} from 'react-router-dom'
 const CategoryLayout = styled.main`
     box-sizing:border-box; 
@@ -135,9 +135,12 @@ export default class Category extends Component {
   componentWillUnmount(){
     this.setState({category: '',categoryProducts: []
   
-  },() =>{
-     console.log(this.state);
-  })}
+  },
+  
+  () =>{
+    console.log(this.state);
+   }
+  )}
   
     render() {
      return (
