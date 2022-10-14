@@ -17,7 +17,7 @@ const ProductDisplayLayout = styled.section`
 
 const ProductImage = styled.div`
   height: 511px;
-  height: 600px;
+  height: 610px;
   object-fit: cover;
   flex: 3;
 

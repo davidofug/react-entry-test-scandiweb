@@ -23,9 +23,8 @@ class App extends Component {
       <>
         <GlobalStyle />
         <BrowserRouter>
-          {/* {console.log(ApolloClient)} */}
-
-          <HeaderWrapper />
+                
+         <HeaderWrapper />
           <Routes>
             <Route
               path="/"
@@ -52,5 +51,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;

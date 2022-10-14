@@ -77,8 +77,7 @@ const ProductImage = styled.img`
     height:354px;
     width: 330px;
     object-fit:cover;
-    
-  
+   
 `
 const Title = styled.h4`
     margin-top:14px;
@@ -104,7 +103,6 @@ export default class Category extends Component {
     gallery:'',
   }
 
-   
   getProductsOfCategory = () =>{
     let category = this.props.default === 'default' ? 'Women' : this.props.location?.pathname.replace('/',"")
     category = category.charAt(0).toUpperCase() + category.slice(1);
@@ -135,11 +133,11 @@ export default class Category extends Component {
   componentWillUnmount(){
     this.setState({category: '',categoryProducts: []
   
-  },
+  }
   
-  () =>{
-    console.log(this.state);
-   }
+  // () =>{
+  //   console.log(this.state);
+  //  }
   )}
   
     render() {

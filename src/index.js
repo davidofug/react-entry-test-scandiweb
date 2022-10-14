@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import {ApolloProvider} from 'react-apollo'
-import client from '../src/client'
+import client from './components/Apollo/client'
+// import gql from 'graphql-tag'
 import data from './data.json'
 
 import reportWebVitals from './reportWebVitals';
@@ -11,7 +12,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-    <App data={data} />
+      <App data={data} />
     </ApolloProvider>
   </React.StrictMode>
 );

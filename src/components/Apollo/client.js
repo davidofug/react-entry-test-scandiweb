@@ -1,14 +1,15 @@
-import  {ApolloClient}  from 'apollo-client';
+import {ApolloClient}  from 'apollo-boost';
 import {HttpLink } from 'apollo-link-http';
 import {InMemoryCache} from 'apollo-cache-inmemory'
 import gql from 'graphql-tag'
+
 const link = new HttpLink({uri:'http://localhost:4000/graphql'})
 const cache = new InMemoryCache()
 const client = new ApolloClient({
   link,
   cache
 });
-export default client
+
 
 const query = gql`
 {
@@ -39,4 +40,4 @@ const query = gql`
 }
  `
 client.query({query}).then(result => console.log(result))
-
+export default client
