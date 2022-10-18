@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
 // import ProductSample from "../../../src/assets/icons/product-image.png";
-
 const ProductDisplayLayout = styled.section`
   width: 86%;
   gap: 20px;
@@ -14,7 +13,6 @@ const ProductDisplayLayout = styled.section`
   background-color: ${COLORS.BACKGROUND.WHITE};
   font-size: ${FONTS.SIZES.TWENTY_FOUR};
 `;
-
 const ProductImage = styled.div`
   height: 511px;
   height: 610px;

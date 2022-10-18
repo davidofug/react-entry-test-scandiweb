@@ -9,6 +9,7 @@ height:80px;
 width:86%;
 margin:0 auto;
 background:${COLORS.WHITE}
+
 `
 export default class Header extends Component {
   render() {

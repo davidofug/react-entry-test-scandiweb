@@ -95,28 +95,35 @@ const PriceTag = styled.h5`
     color: #1D1F22;
 `
 export default class Category extends Component {
+    constructor(props) {
+      super(props)
+    }
     state = {
-    products: this.props.data.products,
+    products: [],
     category: "",
     categoryProducts:[],
-    categories: "",
+    categories: this.props.data,
     gallery:'',
   }
 
   getProductsOfCategory = () =>{
-    let category = this.props.default === 'default' ? 'Women' : this.props.location?.pathname.replace('/',"")
-    category = category.charAt(0).toUpperCase() + category.slice(1);
-    this.setState({category: category.toLowerCase()})
-    const products = this.state.products.filter((product)=> product.categories.includes(category))
+    let category = this.props.default === 'default' ? 'all' : this.props.location?.pathname.replace('/',"")
+    // category = category.charAt(0).toUpperCase() + category.slice(1);
+
+    // this.setState({category: category.toLowerCase()})
+    const selectedCategory = this.state.categories.filter(MyCategory => MyCategory.name === category)
+    // console.log(selectedCategory)
+    // const products = selectedCategory[0].products
+    const {name, products} = selectedCategory[0]
+    console.log(products)
+    // const products = this.state.products.filter((product)=> product.categories.includes(category))
     // console.log(products)
-    this.setState({categoryProducts:[...products]
-    
-    },
-    
+    this.setState({
+      category: name,
+      categoryProducts: products}
     )}
         
   componentDidMount() {
-  
     this.getProductsOfCategory()
   }
   shouldComponentUpdate(nextProps, prevState){
@@ -130,6 +137,7 @@ export default class Category extends Component {
     // this.getProductsOfCategory()
     return true
   }
+
   componentWillUnmount(){
     this.setState({category: '',categoryProducts: []
   

@@ -7,7 +7,7 @@ const Wrapper = styled.div`
     gap:15px;
     justify-content:flex-end;
     align-items:center;
-    flex:2;
+    flex:1;
 
 `
 export default class Actions extends Component {

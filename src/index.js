@@ -1,19 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import {ApolloProvider} from 'react-apollo'
-import client from './components/Apollo/client'
+// import {ApolloProvider} from 'react-apollo'
+// import {Query} from 'react-apollo'
+// import { Query } from "react-apollo";
+// import gql from "graphql-tag";
+// import client from './components/Apollo/client'
 // import gql from 'graphql-tag'
-import data from './data.json'
+// import data from './data.json'
 
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App data={data} />
-    </ApolloProvider>
+    {/* <ApolloProvider client ={client}> */}
+      <App/>
+      {/* </ApolloProvider> */}
   </React.StrictMode>
 );
 
