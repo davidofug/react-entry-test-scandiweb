@@ -75,8 +75,8 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(results => {
-        this.setState({data: results?.data?.categories})
-          // console.log(results.data.categories)
+        this.setState({data: results.data.categories})
+          console.log(results.data.categories)
       });
 
   }
@@ -87,7 +87,7 @@ class App extends Component {
   }
 
   render() {
-    if(this.state.data?.length > 0) {
+    if(this.state.data.length > 0) {
     return (
       <>
         <GlobalStyle />
