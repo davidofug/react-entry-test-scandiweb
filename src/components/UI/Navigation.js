@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
-// import { Query } from "react-apollo";
 import { COLORS, FONTS } from "../constants";
 import Actions from "./Actions";
-// import gql from "graphql-tag";
 import Logo from "./Logo";
+import {connect} from 'react-redux'
+import {fetchNavItems} from '../../actions/navActions'
 
 const Nav = styled.nav`
   display: flex;
@@ -43,42 +43,48 @@ const LogoView = styled.div`
   flex: 1;
 `;
 
-// const CATEGORIES = gql`
-//   {
-//     categories {
-//       name
-//     }
-//   }
-// `;
+
 class Navigation extends Component {
   state = {
     category: "",
     loading: true,
   };
+  componentDidMount() {
+    // console.log(this.props.navItems)
+    // this.props.fetchNavItems()
+  }
 
   render() {
+
+    const {navItems} = this.props
+    console.log(navItems)
     return (
       <>
-        {/* <Query query={CATEGORIES}>
-          {({ loading, data }) => {
-            if (loading) return false;
-            const {categories} = data;
-            return categories.map((category) => (
-              <Nav>
-                <NavItem key={category.name.toString()} id={category.name}>
-                  {category.name}
-                </NavItem>
-              </Nav>
-            ));
-            }}
-        </Query> */}
+      <Nav>
+        {navItems?.length > 0 && navItems.map((navItem,index) => <NavItem key={index.toString()} id={navItem}>{navItem}</NavItem>)}
+      </Nav>
         <LogoView>
           <Logo />
         </LogoView>
         <Actions />
       </>
     );
-  }
+  }     
 }
 
-export default Navigation
+/*const mapStateToProps = (store) => {
+
+  console.log(store)
+
+  return ({...store.navReducer})
+}*/
+
+const mapStoreToProps = (store) => ({
+  ...store.navReducer
+})
+
+const mapDispatchToProps = {
+  fetchNavItems
+}
+
+export default connect(mapStoreToProps,mapDispatchToProps)(Navigation)

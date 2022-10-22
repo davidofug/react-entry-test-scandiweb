@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import styled from 'styled-components/macro'
 import {COLORS, FONTS} from '../../components/constants'
 import CircleCartIcon from '../../assets/icons/Circle-Cart-Icon.png'
-// import {Query} from 'react-apollo'
+import { connect } from "react-redux";
+import { fetchNavItems } from "../../actions/navActions";
 import {Link} from 'react-router-dom'
 const CategoryLayout = styled.main`
     box-sizing:border-box; 
@@ -94,7 +95,7 @@ const PriceTag = styled.h5`
     font-size: 18px;
     color: #1D1F22;
 `
-export default class Category extends Component {
+class Category extends Component {
     constructor(props) {
       super(props)
     }
@@ -115,7 +116,6 @@ export default class Category extends Component {
     // console.log(selectedCategory)
     // const products = selectedCategory[0].products
     const {name, products} = selectedCategory[0]
-    console.log(products)
     // const products = this.state.products.filter((product)=> product.categories.includes(category))
     // console.log(products)
     this.setState({
@@ -124,16 +124,57 @@ export default class Category extends Component {
     )}
         
   componentDidMount() {
-    this.getProductsOfCategory()
+    fetch('http://localhost:4000/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({query: `
+      {
+        categories{
+          name
+          products{
+            id
+            name
+            brand
+            gallery
+            inStock
+            attributes{
+              type
+              name
+              items{
+                value
+              }
+            }
+            prices{
+              currency{
+                symbol
+                label
+              }
+              amount
+            }
+          }
+        }
+      }
+      
+      `})
+    })
+      .then(response => response.json())
+      .then(results => {
+          const categories = results.data.categories
+          this.props.fetchNavItems(categories.map((category) => category.name))
+      });
   }
+
   shouldComponentUpdate(nextProps, prevState){
     // console.log(prevState)
-    const category = nextProps.params?.category || 'women'
-    let newCategory = category.charAt(0).toUpperCase() + category.slice(1);
+    // const category = nextProps.params?.category || 'women'
+    // let newCategory = category.charAt(0).toUpperCase() + category.slice(1);
     // console.log(newCategory)
-    const products = this.state.products.filter((product)=> product.categories.includes(newCategory))
+    // const products = this.state.products.filter((product)=> product.categories.includes(newCategory))
     // console.log(products)
-    prevState.categoryProducts = [...products]
+    // prevState.categoryProducts = [...products]
     // this.getProductsOfCategory()
     return true
   }
@@ -153,14 +194,14 @@ export default class Category extends Component {
       
    <CategoryLayout>
     
-    <CategoryName >{this.props.location?.pathname.replace('/', "") || "Women"}</CategoryName>
-           <ProductList> {
+    {/* <CategoryName >{this.props.location?.pathname.replace('/', "") || "Women"}</CategoryName> */}
+           {/* <ProductList> {
           this.state.categoryProducts.map((product,index) => {
             return <ProductItem key={index.toString()} id={index} product={product} category={this.state.category} 
             />
           })
         }
-        </ProductList>
+        </ProductList> */}
         
    </CategoryLayout>
     )
@@ -182,3 +223,6 @@ export default class Category extends Component {
     )
   }
 }
+
+const mapDispatchToProps = {fetchNavItems}
+export default connect(null, mapDispatchToProps)(Category)
