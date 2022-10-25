@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-
 class Cart extends Component {
   render() {
     console.log(this.props)

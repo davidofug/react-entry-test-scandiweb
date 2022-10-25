@@ -98,31 +98,33 @@ const PriceTag = styled.h5`
 class Category extends Component {
     constructor(props) {
       super(props)
+      this.getProductsOfCategory = this.getProductsOfCategory.bind(this)
+      
     }
     state = {
-    products: [],
-    category: "",
-    categoryProducts:[],
-    categories: this.props.data,
+    categories: [],
+    products:[],
     gallery:'',
   }
-
   getProductsOfCategory = () =>{
-    let category = this.props.default === 'default' ? 'all' : this.props.location?.pathname.replace('/',"")
+    let category = this.props.location?.pathname.replace('/',"") || 'all'
+    // console.log(category)
     // category = category.charAt(0).toUpperCase() + category.slice(1);
 
-    // this.setState({category: category.toLowerCase()})
+    // this.setState({category: category})
     const selectedCategory = this.state.categories.filter(MyCategory => MyCategory.name === category)
     // console.log(selectedCategory)
     // const products = selectedCategory[0].products
-    const {name, products} = selectedCategory[0]
+    // console.log(products)
+    // const {name, products} = selectedCategory[0]
     // const products = this.state.products.filter((product)=> product.categories.includes(category))
     // console.log(products)
-    this.setState({
-      category: name,
-      categoryProducts: products}
-    )}
-        
+    // this.setState({
+    //   category: name,
+    //   categoryProducts: products}
+    // )
+  }
+       
   componentDidMount() {
     fetch('http://localhost:4000/graphql', {
       method: 'POST',
@@ -163,33 +165,33 @@ class Category extends Component {
       .then(response => response.json())
       .then(results => {
           const categories = results.data.categories
-          this.props.fetchNavItems(categories.map((category) => category.name))
+          this.setState({categories: categories})
+           this.props.fetchNavItems(categories.map((category) => category.name))
       });
+
   }
 
-  shouldComponentUpdate(nextProps, prevState){
+  componentDidUpdate(){
     // console.log(prevState)
-    // const category = nextProps.params?.category || 'women'
+    this.getProductsOfCategory()
+    
+    // console.log(this.props)
+    const category = this.props.params?.category || 'all'
     // let newCategory = category.charAt(0).toUpperCase() + category.slice(1);
-    // console.log(newCategory)
+    console.log(category)
     // const products = this.state.products.filter((product)=> product.categories.includes(newCategory))
     // console.log(products)
     // prevState.categoryProducts = [...products]
-    // this.getProductsOfCategory()
     return true
   }
 
   componentWillUnmount(){
-    this.setState({category: '',categoryProducts: []
-  
+    this.setState({categories: []})
   }
   
-  // () =>{
-  //   console.log(this.state);
-  //  }
-  )}
-  
     render() {
+      // console.log(this.props.location)
+
      return (
       
    <CategoryLayout>
@@ -223,6 +225,8 @@ class Category extends Component {
     )
   }
 }
-
+const mapStateToProps = (state) => ({
+  ...state
+})
 const mapDispatchToProps = {fetchNavItems}
-export default connect(null, mapDispatchToProps)(Category)
+export default connect(mapStateToProps, mapDispatchToProps)(Category)

@@ -6,3 +6,5 @@ export const addToCart = (item) => {
         payload: item
     }
 }
+
+

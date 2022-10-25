@@ -10,27 +10,36 @@ import Cart from "webpages/cart/Cart";
 import store from './store'
 
 class App extends Component {
+  // constructor(props) {
+  //   super(props)
+  // }
+  componentDidMount() {
+    // console.log(this.props.navItems)
+   // this.props.fetchNavItems()
+  //  store.subscribe(() => console.log(store.getState()));
 
-  render() {
+ }
+
+    render() {
+
     return (
       <Provider store={store}>
         <GlobalStyle />
         <BrowserRouter>
              <HeaderWrapper />
                 <Routes>
-                  <Route
+                   <Route
                     path="/"
-                    element={<Category default="default" />}
-                  />
-                  <Route path="/:category"
                     element={<Category/>}
-                  />
+                    /> 
+                  <Route path="/:category" 
+                    element={<ElementWrapper routeElement={Category} />} />
                   <Route
                     path="/:category/:id"
                     element={<ProductDetails/>}
                   />
-                  <Route path="productdetails" element={<h3>hallo</h3>} />
-                  <Route path="cartPage" element={<Cart />} />
+                  <Route path="/productdetails" element={<h3>hallo</h3>} />
+                  <Route path="/cartPage" element={<Cart />} />
                 </Routes>
         </BrowserRouter>
       </Provider>
