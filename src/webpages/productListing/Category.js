@@ -96,33 +96,10 @@ const PriceTag = styled.h5`
     color: #1D1F22;
 `
 class Category extends Component {
-    constructor(props) {
-      super(props)
-      this.getProductsOfCategory = this.getProductsOfCategory.bind(this)
-      
-    }
     state = {
     categories: [],
     products:[],
     gallery:'',
-  }
-  getProductsOfCategory = () =>{
-    let category = this.props.location?.pathname.replace('/',"") || 'all'
-    // console.log(category)
-    // category = category.charAt(0).toUpperCase() + category.slice(1);
-
-    // this.setState({category: category})
-    const selectedCategory = this.state.categories.filter(MyCategory => MyCategory.name === category)
-    // console.log(selectedCategory)
-    // const products = selectedCategory[0].products
-    // console.log(products)
-    // const {name, products} = selectedCategory[0]
-    // const products = this.state.products.filter((product)=> product.categories.includes(category))
-    // console.log(products)
-    // this.setState({
-    //   category: name,
-    //   categoryProducts: products}
-    // )
   }
        
   componentDidMount() {
@@ -171,18 +148,12 @@ class Category extends Component {
 
   }
 
-  componentDidUpdate(){
-    // console.log(prevState)
-    this.getProductsOfCategory()
-    
-    // console.log(this.props)
+  componentDidUpdate(prevProps, prevState, snapshot){
     const category = this.props.params?.category || 'all'
-    // let newCategory = category.charAt(0).toUpperCase() + category.slice(1);
-    console.log(category)
-    // const products = this.state.products.filter((product)=> product.categories.includes(newCategory))
-    // console.log(products)
-    // prevState.categoryProducts = [...products]
-    return true
+    const extractedCategories = this.state.categories.filter((myCategory)=> myCategory.name === category)
+    if( prevState.selectedCategory?.name !== extractedCategories[0]?.name) {
+      this.setState({selectedCategory: extractedCategories[0]})
+    }
   }
 
   componentWillUnmount(){
@@ -190,7 +161,7 @@ class Category extends Component {
   }
   
     render() {
-      // console.log(this.props.location)
+      console.log(this.state.selectedCategory)
 
      return (
       
