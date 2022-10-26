@@ -98,10 +98,10 @@ const PriceTag = styled.h5`
 class Category extends Component {
     state = {
     categories: [],
-    products:[],
-    gallery:'',
+    selectedCategory: {}
+    
   }
-       
+      
   componentDidMount() {
     fetch('http://localhost:4000/graphql', {
       method: 'POST',
@@ -162,20 +162,14 @@ class Category extends Component {
   
     render() {
       console.log(this.state.selectedCategory)
-
+   const { name, products} = this.state.selectedCategory
      return (
-      
+
    <CategoryLayout>
-    
-    {/* <CategoryName >{this.props.location?.pathname.replace('/', "") || "Women"}</CategoryName> */}
-           {/* <ProductList> {
-          this.state.categoryProducts.map((product,index) => {
-            return <ProductItem key={index.toString()} id={index} product={product} category={this.state.category} 
-            />
-          })
-        }
-        </ProductList> */}
-        
+    <CategoryName >{name || "all"}</CategoryName>
+      <ProductList>
+          {products?.length > 0 && products.map((product) => <ProductItem key={product.id} id={product.id} product={product} category={name} />)}
+     </ProductList>             
    </CategoryLayout>
     )
   }
@@ -186,10 +180,10 @@ class Category extends Component {
        return (
         <StyledLink to={`/${category}/${id}`}>
         <StyledFigure>
-          <ProductImage src={product.image} alt={product.title}/> 
+          <ProductImage src={product.gallery[0]} alt={product.name}/> 
          </StyledFigure>
-            <Title>{product.title}</Title>
-             <PriceTag><strong>${product.price.USD}</strong></PriceTag>
+            <Title>{product.name}</Title>
+              <PriceTag><strong>{product.prices[0].currency.symbol}{product.prices[0].amount} {product.prices[0].currency.label}</strong></PriceTag>
        </StyledLink>
               
         
