@@ -141,7 +141,7 @@ class ProductDetails extends React.Component {
 			<>
 				<ProductDisplayLayout>
 					<Gallery>
-						{PRODUCT.gallery.map((image, index) => (
+						{PRODUCT?.gallery?.map((image, index) => (
 							<ProductTile
 								key={index.toString()}
 								src={image}
@@ -161,65 +161,67 @@ class ProductDetails extends React.Component {
 					<ProductInfo>
 						<h1>{PRODUCT.name}</h1>
 						<h2>{PRODUCT.brand}</h2>
-
-						{PRODUCT?.attributes[0]?.name === "Size" && (
-							<>
-								<h3>Size:</h3>
-								<p>
-									{/* 							{JSON.stringify(
-								PRODUCT.attributes[0]?.items,
-								null,
-								4
-							)} */}
-									{PRODUCT.attributes[0]?.items.map(
-										(size) => (
-											<Size
-												id={size.value}
-												onClick={(event) => {
-													console.log(
-														event.target.id
-													);
-													// setTimeout(() => {
-													//   console.log(this.state.selectedSize);
-													// }, 1000); tO SET STATE YOU NEED A KEY
-												}}
-												key={size.value}>
-												{size.value}
-											</Size>
-										)
+						{PRODUCT?.attributes?.length > 0 &&
+							PRODUCT.attributes.map((attribute, index) => (
+								<div key={index.toString()}>
+									{attribute?.name === "Size" && (
+										<>
+											<h3>Size:</h3>
+											<p>
+												{attribute?.items.map(
+													(size) => (
+														<Size
+															id={size.value}
+															onClick={(
+																event
+															) => {
+																console.log(
+																	event.target
+																		.id
+																);
+																// setTimeout(() => {
+																//   console.log(this.state.selectedSize);
+																// }, 1000); tO SET STATE YOU NEED A KEY
+															}}
+															key={size.value}>
+															{size.value}
+														</Size>
+													)
+												)}
+											</p>
+										</>
 									)}
-								</p>
-							</>
-						)}
-						{/* 						<ColorSwatch>
-							<h3>Color:</h3>
-							{PRODUCT.colors.map((color) => {
-								return (
-									<span
-										key={color}
-										style={{ backgroundColor: color }}
-										onClick={(event) => {
-											this.setState({
-												selectedColor:
-													event.target.style
-														.backgroundColor,
-											});
-											setTimeout(() => {
-												console.log(
-													this.state.selectedColor
+									{attribute?.name === "Color" && (
+										<ColorSwatch>
+											<h3>Color:</h3>
+											{attribute?.items?.map((color) => {
+												return (
+													<span
+														key={color.value}
+														style={{
+															backgroundColor:
+																color.value,
+														}}
+														onClick={(event) => {
+															this.setState({
+																selectedColor:
+																	event.target
+																		.style
+																		.backgroundColor,
+															});
+															setTimeout(() => {
+																console.log(
+																	this.state
+																		.selectedColor
+																);
+															}, 2000);
+														}}></span>
 												);
-											}, 2000);
-										}}></span>
-								);
-
-								//when the user clicks on a color swatch:
-								//1. Implement an event
-								//2. The event is triggered on Click of the color from the Color Swatch
-								//3. The color is retrieved from the color item that has been clicked
-								//4. Console the color to find out if it's the right color
-								//5. Then store in the appropriate state
-							})}
-						</ColorSwatch> */}
+											})}
+										</ColorSwatch>
+									)}
+								</div>
+							))}
 						<Price>
 							Price:
 							<span>
