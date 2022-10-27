@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
 // import ProductSample from "../../../src/assets/icons/product-image.png";
+import {connect} from 'react-redux'
+import { getProductDetails } from "actions/productActions";
 const ProductDisplayLayout = styled.section`
   width: 86%;
   gap: 20px;
@@ -117,33 +119,35 @@ const Price = styled.h3`
     margin: 10px 0;
   }
 `;
-export default class ProductDetails extends React.Component {
-  state = {
+ class ProductDetails extends React.Component {
+  constructor(props){
+    super(props)
+    console.log(this.props)
+  }
+  /*state = {
+    products:{},
+    name:[],
     selectedColor: "",
     selectedSize: "",
     galleryImagePosition: 0,
-  };
+ };*/
 
   changeImage = (position) => {
     this.setState({ galleryImagePosition: position });
   };
 
   render() {
-    const LOCATION_PARTS = window.location.pathname.split("/");
-    // console.log(location)
-    // console.log(this.props.data.products.)
-    const [, category, id] = LOCATION_PARTS;
-    // console.log(category, id)
-    const CATEGORY_NAME = category.charAt(0).toUpperCase() + category.slice(1);
-    const PRODUCTS_IN_CATEGORY = this.props.data.products.filter((product) =>
-      product.categories.includes(CATEGORY_NAME)
-    );
-    // console.log(PRODUCTS_IN_CATEGORY[id])
-    const PRODUCT = PRODUCTS_IN_CATEGORY[id];
-
+    // const LOCATION_PARTS = window.location.pathname.split("/");
+    // const [,name,id] = LOCATION_PARTS;
+    // console.log(name)
+    // const PRODUCTS_IN_CATEGORY = this.state.categories.products.filter((product) => product.categories.includes(name))
+    // console.log(PRODUCTS_IN_CATEGORY[0])
+    // const PRODUCT = PRODUCTS_IN_CATEGORY[id];
+    const PRODUCT = this.props.product
+    
     return (
       <>
-        <ProductDisplayLayout>
+        {/*<ProductDisplayLayout>
           <Gallery>
             {PRODUCT.gallery.map((image, index) => (
               <ProductTile
@@ -154,7 +158,6 @@ export default class ProductDetails extends React.Component {
               />
             ))}
           </Gallery>
-
           <ProductImage>
             <img
               src={PRODUCT.gallery[this.state.galleryImagePosition]}
@@ -214,8 +217,15 @@ export default class ProductDetails extends React.Component {
             <AddToCartBtn>Add To Cart</AddToCartBtn>
             <DescriptionText>{PRODUCT.description}</DescriptionText>
           </ProductInfo>
-        </ProductDisplayLayout>
+            </ProductDisplayLayout>*/}
       </>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  product: state.productReducer
+})
+const mapDispatchToProps = {getProductDetails}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails)

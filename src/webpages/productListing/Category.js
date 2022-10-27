@@ -4,6 +4,7 @@ import {COLORS, FONTS} from '../../components/constants'
 import CircleCartIcon from '../../assets/icons/Circle-Cart-Icon.png'
 import { connect } from "react-redux";
 import { fetchNavItems } from "../../actions/navActions";
+import { setProductDetails} from '../../actions/productActions';
 import {Link} from 'react-router-dom'
 const CategoryLayout = styled.main`
     box-sizing:border-box; 
@@ -39,7 +40,6 @@ const ProductList = styled.div`
     flex-direction:column;
     box-sizing:border-box; 
     height:444px;
-    /* width:386px; */
     cursor:pointer;
     padding:16px;
     position:relative;
@@ -87,6 +87,11 @@ const Title = styled.h4`
     color:${COLORS.BLACK};
     font-weight:300;
     font-size: 18px;
+    margin-bottom:4px;
+  > span{
+    margin-left:6px;
+  
+  }
 `
 const PriceTag = styled.h5`
     font-family: 'Raleway';
@@ -96,12 +101,13 @@ const PriceTag = styled.h5`
     color: #1D1F22;
 `
 class Category extends Component {
+  
     state = {
     categories: [],
     selectedCategory: {}
     
   }
-      
+       
   componentDidMount() {
     fetch('http://localhost:4000/graphql', {
       method: 'POST',
@@ -144,12 +150,15 @@ class Category extends Component {
           const categories = results.data.categories
           this.setState({categories: categories})
            this.props.fetchNavItems(categories.map((category) => category.name))
+          
       });
 
   }
 
   componentDidUpdate(prevProps, prevState, snapshot){
+    // console.log(prevState)
     const category = this.props.params?.category || 'all'
+    // console.log(category)
     const extractedCategories = this.state.categories.filter((myCategory)=> myCategory.name === category)
     if( prevState.selectedCategory?.name !== extractedCategories[0]?.name) {
       this.setState({selectedCategory: extractedCategories[0]})
@@ -161,14 +170,15 @@ class Category extends Component {
   }
   
     render() {
-      console.log(this.state.selectedCategory)
-   const { name, products} = this.state.selectedCategory
+    
+    // console.log(this.state.selectedCategory)
+    const { name, products} = this.state.selectedCategory
      return (
 
    <CategoryLayout>
     <CategoryName >{name || "all"}</CategoryName>
       <ProductList>
-          {products?.length > 0 && products.map((product) => <ProductItem key={product.id} id={product.id} product={product} category={name} />)}
+          {products?.length > 0 && products.map((product) => <ProductItem key={product.id} id={product.id} product={product} category={name} setProductDetails={this.props.setProductDetails} navigate={this.props.navigate}/>)}
      </ProductList>             
    </CategoryLayout>
     )
@@ -176,14 +186,22 @@ class Category extends Component {
 }
   export class ProductItem extends Component {
     render(){
-      const {id,product,category} = this.props
+      const {id,product,category,setProductDetails, navigate} = this.props
        return (
-        <StyledLink to={`/${category}/${id}`}>
+        <StyledLink to={`/${category}/${id}`} /*>onClick={event => {
+            event.preventDefault()
+            //Use the id to filter a particular product from the selected Category
+            //Pass that product to the setProductDetails Action, which will attach the Product to the Redux store.
+            //Since the store is global it's accessible in any component we connected it to.
+            // this.state.selectedCategory.products.filter( product => product.id === id)
+            setProductDetails(product)
+            // setTimeout(()=> window.location.href = `/${category}/${id}`, 500);
+        }}*/>
         <StyledFigure>
           <ProductImage src={product.gallery[0]} alt={product.name}/> 
          </StyledFigure>
-            <Title>{product.name}</Title>
-              <PriceTag><strong>{product.prices[0].currency.symbol}{product.prices[0].amount} {product.prices[0].currency.label}</strong></PriceTag>
+            <Title>{product.name}<span>{product.brand}</span></Title>
+              <PriceTag><strong>{product.prices[0].currency.symbol}{product.prices[0].amount}</strong></PriceTag>
        </StyledLink>
               
         
@@ -193,5 +211,5 @@ class Category extends Component {
 const mapStateToProps = (state) => ({
   ...state
 })
-const mapDispatchToProps = {fetchNavItems}
+const mapDispatchToProps = {fetchNavItems, setProductDetails}
 export default connect(mapStateToProps, mapDispatchToProps)(Category)
