@@ -1,63 +1,35 @@
 import React from "react";
-import { useLocation, useNavigate, useParams, useHistory } from "react-router-dom";
+import {
+	useLocation,
+	useNavigate,
+	useParams,
+	useHistory,
+} from "react-router-dom";
 
 const ElementWrapper = (props) => {
-  const params = useParams();
-  const location = useLocation();
-  const navigate = useNavigate()
-  // const history = useHistory()
-  const Element = props.routeElement;
+	const params = useParams();
+	const location = useLocation();
+	const navigate = useNavigate();
+	const Element = props.routeElement;
 
-  return <Element params={params} navigate={navigate} location={location} navigate={navigate} {...props} />;
+	return (
+		<Element
+			params={params}
+			navigate={navigate}
+			location={location}
+			{...props}
+		/>
+	);
 };
 
 export default ElementWrapper;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import {
 //     useLocation,
 //     useNavigate,
 //     useParams,
 //   } from "react-router-dom";
-  
+
 // export default function withRouter(Component) {
 //     function ComponentWithRouterProp(props) {
 //       let location = useLocation();
@@ -70,6 +42,6 @@ export default ElementWrapper;
 //         />
 //       );
 //     }
-  
+
 //     return ComponentWithRouterProp;
 //   }
