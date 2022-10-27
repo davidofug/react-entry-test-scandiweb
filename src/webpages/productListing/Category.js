@@ -178,7 +178,6 @@ class Category extends Component {
 								product={product}
 								category={name}
 								setProductDetails={this.props.setProductDetails}
-								navigate={this.props.navigate}
 							/>
 						))}
 				</ProductList>
@@ -193,7 +192,7 @@ export class ProductItem extends Component {
 		return (
 			<StyledLink
 				to={`/${category}/${id}`}
-				onClick={() => setProductDetails(product)}>
+				onClick={() => setProductDetails({ category, ...product })}>
 				<StyledFigure>
 					<ProductImage src={product.gallery[0]} alt={product.name} />
 				</StyledFigure>
