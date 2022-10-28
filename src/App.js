@@ -26,11 +26,7 @@ class App extends Component {
 							path="/:category/:id"
 							element={<ProductDetails />}
 						/>
-						<Route
-							path="/productdetails"
-							element={<h3>hallo</h3>}
-						/>
-						<Route path="/cartPage" element={<Cart />} />
+						<Route path="/cart" element={<Cart />} />
 					</Routes>
 				</BrowserRouter>
 			</Provider>

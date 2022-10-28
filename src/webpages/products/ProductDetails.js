@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
+import { Link } from "react-router-dom";
 // import ProductSample from "../../../src/assets/icons/product-image.png";
 import { connect } from "react-redux";
-import { getProductDetails } from "actions/productActions";
+import { addToCart } from "../../actions/cartActions";
 const ProductDisplayLayout = styled.section`
 	width: 86%;
 	gap: 20px;
@@ -55,8 +56,9 @@ const DescriptionText = styled.div`
 	margin-top: 18px;
 	max-width: fit-content;
 `;
-const AddToCartBtn = styled.button`
-	margin-top: 14px;
+const AddToCartBtn = styled(Link)`
+	text-decoration: none;
+	margin-top: 20px;
 	background-color: ${COLORS.GREEN};
 	font-family: ${FONTS.FAMILIES.RALEWAY};
 	font-size: ${FONTS.SIZES.SIXTEEN};
@@ -231,8 +233,17 @@ class ProductDetails extends React.Component {
 							</span>
 						</Price>
 
-						<AddToCartBtn>Add To Cart</AddToCartBtn>
-						<DescriptionText>{PRODUCT.description}</DescriptionText>
+						<AddToCartBtn
+							to="/cart"
+							onClick={() => this.props.addToCart(PRODUCT)}>
+							Add To Cart
+						</AddToCartBtn>
+						<DescriptionText>
+							<div
+								dangerouslySetInnerHTML={{
+									__html: PRODUCT.description,
+								}}></div>
+						</DescriptionText>
 					</ProductInfo>
 				</ProductDisplayLayout>
 			</>
@@ -243,6 +254,6 @@ class ProductDetails extends React.Component {
 const mapStateToProps = (state) => ({
 	...state.productReducer,
 });
-const mapDispatchToProps = { getProductDetails };
+const mapDispatchToProps = { addToCart };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

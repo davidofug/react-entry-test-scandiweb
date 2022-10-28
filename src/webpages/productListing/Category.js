@@ -99,7 +99,7 @@ class Category extends Component {
 	};
 
 	componentDidMount() {
-		fetch("http://localhost:4000/graphql", {
+		fetch(`${process.env.REACT_APP_URL}`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -113,18 +113,18 @@ class Category extends Component {
           products{
             id
             name
+			description
             brand
             gallery
             inStock
             attributes{
-              type
               name
-              items{
+              items {
                 value
               }
             }
             prices{
-              currency{
+              currency {
                 symbol
                 label
               }
@@ -187,8 +187,7 @@ class Category extends Component {
 }
 export class ProductItem extends Component {
 	render() {
-		const { id, product, category, setProductDetails, navigate } =
-			this.props;
+		const { id, product, category, setProductDetails } = this.props;
 		return (
 			<StyledLink
 				to={`/${category}/${id}`}
