@@ -24,7 +24,9 @@ class App extends Component {
 						/>
 						<Route
 							path="/:category/:id"
-							element={<ProductDetails />}
+							element={
+								<ElementWrapper routeElement={ProductDetails} />
+							}
 						/>
 						<Route path="/cart" element={<Cart />} />
 					</Routes>
