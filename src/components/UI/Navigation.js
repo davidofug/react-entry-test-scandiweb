@@ -8,97 +8,121 @@ import { connect } from "react-redux";
 import { fetchNavItems } from "../../actions/navActions";
 
 const Nav = styled.nav`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex: 1;
-  background: ${COLORS.WHITE};
-  font-family: ${FONTS.FAMILIES.RALEWAY};
-  color: ${COLORS.WHITE};
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	flex: 1;
+	background: ${COLORS.WHITE};
+	font-family: ${FONTS.FAMILIES.RALEWAY};
+	color: ${COLORS.WHITE};
 `;
 
 const NavItem = styled.ul`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 42px;
-  list-style-type: none;
-  padding-top: 20px;
-  text-transform: uppercase;
-  padding-bottom: 20px;
-  color: ${COLORS.BLACK};
-  font-family: ${FONTS.FAMILIES.RALEWAY};
-  border-bottom: 2px solid transparent;
-  transition: 0.3s ease all;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 42px;
+	list-style-type: none;
+	padding-top: 20px;
+	text-transform: uppercase;
+	padding-bottom: 20px;
+	color: ${COLORS.BLACK};
+	font-family: ${FONTS.FAMILIES.RALEWAY};
+	border-bottom: 2px solid transparent;
+	transition: 0.3s ease all;
 `;
 
 const StyledLink = styled(Link)`
-  text-decoration: none;
-  font-family: ${FONTS.FAMILIES.RALEWAY};
-  color: ${COLORS.BLACK};
-  padding-bottom: 30px;
-  &:hover {
-    color: ${COLORS.GREEN};
-    border-bottom: 2px solid ${COLORS.GREEN};
-  }
+	text-decoration: none;
+	font-family: ${FONTS.FAMILIES.RALEWAY};
+	color: ${COLORS.BLACK};
+	padding-bottom: 30px;
+	&:hover {
+		color: ${COLORS.GREEN};
+		border-bottom: 2px solid ${COLORS.GREEN};
+	}
 `;
 
 const LogoView = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
 `;
 
 class Navigation extends Component {
-  // constructor(props){
-  //   super(props)
-  //   // console.log(this.props)
-  // }
+	// constructor(props){
+	//   super(props)
+	//   // console.log(this.props)
+	// }
 
-  state = {
-    category: "",
-    loading: true,
-  };
+	state = {
+		category: "",
+		navItems: [],
+		loading: true,
+	};
 
-  componentDidMount() {
-    // console.log(this.props.navItems)
-    // console.log(this.props.fetchNavItems())
-    // store.subscribe(() => console.log(store.getState()));
-    // setTimeout(() => {},500)
-  }
+	componentDidMount() {
+		// console.log(this.props.navItems)
+		// console.log(this.props.fetchNavItems())
+		// store.subscribe(() => console.log(store.getState()));
+		// setTimeout(() => {},500)
 
-  render() {
-    const { navItems } = this.props;
-    // console.log(navItems)
-    return (
-      <>
-        <Nav>
-          <NavItem>
-            {navItems.length > 0 &&
-              navItems.map((navItem, index) => (
-                <li key={index.toString()} id={navItem}>
-                  <StyledLink to={`/${navItem}`}>{navItem}</StyledLink>
-                </li>
-              ))}
-          </NavItem>
-        </Nav>
-        <LogoView>
-          <Logo />
-        </LogoView>
-        <Actions />
-      </>
-    );
-  }
+		fetch(`${process.env.REACT_APP_URL}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+			},
+			body: JSON.stringify({
+				query: ` {
+          categories {
+            name
+          }
+        }`,
+			}),
+		})
+			.then((response) => response.json())
+			.then((result) => {
+				console.log(result);
+				this.setState({ navItems: result.data.categories });
+			})
+			.catch((error) => console.log(error));
+	}
+
+	render() {
+		const { navItems } = this.state;
+		// console.log(navItems);
+		return (
+			<>
+				<Nav>
+					<NavItem>
+						{navItems.length > 0 &&
+							navItems.map((navItem, index) => (
+								<li key={index.toString()} id={navItem.name}>
+									<StyledLink to={`/${navItem.name}`}>
+										{navItem.name}
+									</StyledLink>
+								</li>
+							))}
+					</NavItem>
+				</Nav>
+				<LogoView>
+					<Logo />
+				</LogoView>
+				<Actions />
+			</>
+		);
+	}
 }
 
 const mapStoreToProps = (store) => ({
-  ...store.navReducer,
+	...store.navReducer,
 });
 
 const mapDispatchToProps = {
-  fetchNavItems,
+	fetchNavItems,
 };
 
 export default connect(mapStoreToProps, mapDispatchToProps)(Navigation);
