@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../constants";
-import Actions from "./Actions";
+import CartIcon from "./CartIcon";
+import CurrencySwitcher from "./CurrencySwitcher";
+// import Actions from "./Actions";
 import Logo from "./Logo";
 import { connect } from "react-redux";
 import { fetchNavItems } from "../../actions/navActions";
+import Modal from "./Modal";
+import Minicart from "./Minicart";
 
 const Nav = styled.nav`
 	display: flex;
@@ -51,6 +55,13 @@ const LogoView = styled.div`
 	flex: 1;
 `;
 
+const Actions = styled.div`
+	display: flex;
+	gap: 15px;
+	justify-content: flex-end;
+	align-items: center;
+	flex: 1;
+`;
 class Navigation extends Component {
 	// constructor(props){
 	//   super(props)
@@ -58,9 +69,19 @@ class Navigation extends Component {
 	// }
 
 	state = {
+		displayMinicart: false,
 		category: "",
 		navItems: [],
 		loading: true,
+	};
+
+	toggleMinicart = () => {
+		this.setState({ displayMinicart: !this.state.displayMinicart });
+	};
+
+	closeModal = (event) => {
+		event.target.id === "modal" &&
+			this.setState({ displayMinicart: false });
 	};
 
 	componentDidMount() {
@@ -110,7 +131,17 @@ class Navigation extends Component {
 				<LogoView>
 					<Logo />
 				</LogoView>
-				<Actions />
+				<Actions>
+					<CurrencySwitcher />
+					<CartIcon toggleMinicart={this.toggleMinicart} />
+				</Actions>
+				{this.state.displayMinicart && (
+					<Modal
+						onClick={this.closeModal}
+						style={{ display: "flex", justifyContent: "flex-end" }}>
+						<Minicart />
+					</Modal>
+				)}
 			</>
 		);
 	}
