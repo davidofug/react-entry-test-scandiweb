@@ -93,7 +93,6 @@ class Navigation extends Component {
 
 	render() {
 		const { navItems } = this.state;
-		// console.log(navItems);
 		return (
 			<>
 				<Nav>
