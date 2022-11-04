@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 const Wrapper = styled.section`
 	position: absolute;
-	top: 0;
+	top: 50px;
 	left: 0;
 	width: 100vw;
-	height: 100vh;
+	min-height: 100%;
 	background: rgba(0, 0, 0, 0.5);
 	z-index: 999;
 `;
