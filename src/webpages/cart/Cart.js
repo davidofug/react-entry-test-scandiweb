@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../../components/constants";
-/* import Slider1 from "../../assets/icons/slider-left.png";
-import Slider2 from "../../assets/icons/slider-right.png";
-import Hoodie from "../../assets/icons/product-image.png"; */
-import { addToQuantity, reduceToQuantity } from "../../actions/cartActions";
-// import {Link} from 'react-router-dom'
-// import {Link} from 'react-router-dom'
 import { connect } from "react-redux";
+import { addToQuantity, reduceToQuantity } from "../../actions/cartActions";
+// import Slider1 from "../../assets/icons/slider-left.png";
+// import Slider2 from "../../assets/icons/slider-right.png";
 const CartDisplayLayout = styled.section`
 	width: 86%;
 	gap: 20px;
@@ -20,7 +17,6 @@ const CartDisplayLayout = styled.section`
 	background-color: ${COLORS.BACKGROUND.WHITE};
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};
 `;
-
 const Title = styled.h2`
 	font-family: ${FONTS.FAMILIES.RALEWAY};
 	font-weight: ${FONTS.WEIGHTS.LARGEST};
@@ -106,12 +102,14 @@ const QuantityIcons = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	margin-right: 24px;
+
 	> button {
 		height: 45px;
 		width: 45px;
 		text-align: center;
 		line-height: 45px;
 		margin-bottom: 4px;
+		background-color: ${COLORS.WHITE};
 		border: 1px solid ${COLORS.GRAY};
 		cursor: pointer;
 	}
@@ -133,7 +131,6 @@ const SliderLeft = styled.img`
 	position: absolute;
 	background: ${COLORS.BLACK};
 	color: ${COLORS.WHITE};
-	/* border: 2px solid black; */
 	width: 18px;
 	height: 20px;
 	text-align: center;
@@ -150,7 +147,6 @@ const SliderRight = styled.img`
 	height: 20px;
 	background: ${COLORS.BLACK};
 	color: ${COLORS.WHITE};
-	/* border: 2px solid black; */
 	cursor: pointer;
 	right: 50px;
 	bottom: 20px;
@@ -176,8 +172,8 @@ const OrderButton = styled.button`
 	font-size: ${FONTS.SIZES.SIXTEEN};
 	font-weight: ${FONTS.WEIGHTS.LARGER};
 	margin-bottom: 40px;
-	/* width:100%; */
 	border: none;
+	color: ${COLORS.WHITE};
 	padding: 16px 32px;
 	cursor: pointer;
 	color: ${COLORS.WHITE};
@@ -189,16 +185,39 @@ class Cart extends Component {
 		tax: 0,
 		quantity: 0,
 		total: 0,
-		items: {},
-		index: 0,
 	};
 
-	generateTax = () => {
-		this.state.tax = this.state.total * 0.21;
+	generateTax = (total) => {
+		const tax = total * 0.21;
+		this.setState({ tax: tax });
 	};
 
-	generateTotalAmount = () => {};
-	generateTotalQuantity = () => {};
+	generateTotalAmount = () => {
+		let grandTotal = 0;
+		this.props.items.forEach((item) => {
+			const quantity = item.quantity;
+			const amount = item.prices[0].amount;
+			const total = amount * quantity;
+			grandTotal += total;
+		});
+
+		this.setState({ total: grandTotal });
+		this.generateTax(grandTotal);
+	};
+
+	generateTotalQuantity = () => {
+		let quantity = 0;
+		this.props.items.forEach((item) => {
+			quantity += item?.quantity;
+		});
+
+		this.setState({ quantity: quantity });
+	};
+
+	componentDidMount() {
+		this.generateTotalAmount();
+		this.generateTotalQuantity();
+	}
 
 	render() {
 		const items = this.props.items;
@@ -215,49 +234,56 @@ class Cart extends Component {
 									{item.prices[0].currency.symbol}
 									{item.prices[0].amount}
 								</PriceLabel>
+
 								{/* {item?.attributes?.length > 0 && item.attributes.map((attribute) => (
                       {attribute?.name === "Size" && (
-                          <Size key={'size'}>
+                          <Size>
                             <p>Size:</p>
-                            {attribute.items.map((size) => (<span id={size} key={size.value}>{size.value}</span>))}
+                            {attribute.items.map((size) => (<span id={size} key={size.value}>{size.value}</span>
+
+                      ))}
                           </Size>
-          )}))}       *
-                                {attribute?.name === "Color" && (
+          )}
+                      {attribute?.name === "Color" && (
                         <Color>
                           <h5>Color:</h5>
                           {attribute.items.map(color => (<span style={{backgroundColor: color.value}}></span>))}
                       </Color>
-                    )}
-                                )))}  */}
+                  )} */}
 							</ItemDescription>
 							<QuantityIcons>
 								<button
-									onClick={() =>
-										this.props.addToQuantity(index)
-									}>
+									onClick={() => {
+										this.props.addToQuantity(index);
+										this.generateTotalAmount();
+										this.generateTotalQuantity();
+									}}>
 									+
 								</button>
+
 								<span>{item.quantity}</span>
 								<button
-									onClick={() =>
-										this.props.reduceToQuantity(index)
-									}>
+									onClick={() => {
+										this.props.reduceToQuantity(index);
+										this.generateTotalAmount();
+										this.generateTotalQuantity();
+									}}>
 									-
 								</button>
 							</QuantityIcons>
 
 							<ImageContainer>
 								<CartImage src={item.gallery[0]}></CartImage>
-								{/* 								<SliderLeft src={Slider1}></SliderLeft>
-								<SliderRight src={Slider2}></SliderRight> */}
+								{/* <SliderLeft src={Slider1}></SliderLeft> */}
+								{/* <SliderRight src={Slider2}></SliderRight> */}
 							</ImageContainer>
 						</CartItem>
 					))}
 				<CheckOutDetails>
 					<ul>
-						<li>Tax 21%:{this.state.tax}</li>
+						<li>Tax 21%:{Number(this.state.tax).toFixed(2)}</li>
 						<li>Quantity:{this.state.quantity}</li>
-						<li>Total: {this.state.total}</li>
+						<li>Total: {Number(this.state.total).toFixed(2)}</li>
 					</ul>
 
 					<OrderButton>Order</OrderButton>
