@@ -118,7 +118,7 @@ class Navigation extends Component {
 			<>
 				<Nav>
 					<NavItem>
-						{navItems.length > 0 &&
+						{navItems?.length > 0 &&
 							navItems.map((navItem, index) => (
 								<li key={index.toString()} id={navItem.name}>
 									<StyledLink to={`/${navItem.name}`}>
