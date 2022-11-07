@@ -8,7 +8,7 @@ import { addToQuantity, reduceToQuantity } from "actions/cartActions";
 const MiniCartLayout = styled.aside`
 	position: absolute;
 	width: 325px;
-	height: 600px;
+	max-height: 600px;
 	right: 78px;
 	color: ${COLORS.BLACK};
 	background-color: ${COLORS.WHITE};
