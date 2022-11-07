@@ -5,7 +5,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-	items: localStorage.getItem("cart") || [],
+	items: JSON.parse(localStorage.getItem("cart")) || [],
 };
 
 export default function cartReducer(state = initialState, action) {
