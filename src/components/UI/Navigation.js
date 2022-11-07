@@ -134,7 +134,7 @@ class Navigation extends Component {
 				<Actions>
 					<CurrencySwitcher />
 					<CartIcon toggleMinicart={this.toggleMinicart} />
-					{this.props.items.length}
+					{this.props?.items?.length}
 				</Actions>
 				{this.state.displayMinicart && (
 					<Modal

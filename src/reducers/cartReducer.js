@@ -5,13 +5,17 @@ import {
 } from "../actions/types";
 
 const initialState = {
-	items: [],
+	items: localStorage.getItem("cart") || [],
 };
 
 export default function cartReducer(state = initialState, action) {
 	let newQuantity, item, itemPosition;
 	switch (action.type) {
 		case ADD_TO_CART:
+			localStorage.setItem(
+				"cart",
+				JSON.stringify([action.payload, ...state.items])
+			);
 			return {
 				items: [action.payload, ...state.items],
 			};
@@ -22,6 +26,7 @@ export default function cartReducer(state = initialState, action) {
 			item["quantity"] = newQuantity;
 			state.items[itemPosition] = item;
 
+			localStorage.setItem("cart", JSON.stringify([...state.items]));
 			return {
 				items: [...state.items],
 			};
@@ -31,6 +36,7 @@ export default function cartReducer(state = initialState, action) {
 			newQuantity = item["quantity"] - action.payload.quantity;
 			item["quantity"] = newQuantity <= 0 ? 1 : newQuantity;
 			state.items[itemPosition] = item;
+			localStorage.setItem("cart", JSON.stringify([...state.items]));
 
 			return {
 				items: [...state.items],
