@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components/macro";
 const Wrapper = styled.section`
-	position: absolute;
+	position: fixed;
 	top: 70px;
 	left: 0;
 	width: 100vw;

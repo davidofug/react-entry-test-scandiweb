@@ -8,11 +8,13 @@ import { addToQuantity, reduceToQuantity } from "actions/cartActions";
 const MiniCartLayout = styled.aside`
 	position: absolute;
 	width: 325px;
+	height: 600px;
 	right: 78px;
 	color: ${COLORS.BLACK};
 	background-color: ${COLORS.WHITE};
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};
 	padding: 32px 16px;
+	overflow-y: auto;
 `;
 
 const Title = styled.h3`
