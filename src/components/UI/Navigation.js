@@ -134,6 +134,7 @@ class Navigation extends Component {
 				<Actions>
 					<CurrencySwitcher />
 					<CartIcon toggleMinicart={this.toggleMinicart} />
+					{this.props.items.length}
 				</Actions>
 				{this.state.displayMinicart && (
 					<Modal
@@ -149,6 +150,7 @@ class Navigation extends Component {
 
 const mapStoreToProps = (store) => ({
 	...store.navReducer,
+	...store.cartReducter,
 });
 
 const mapDispatchToProps = {

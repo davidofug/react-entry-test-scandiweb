@@ -234,22 +234,41 @@ class Cart extends Component {
 									{item.prices[0].currency.symbol}
 									{item.prices[0].amount}
 								</PriceLabel>
-
-								{/* {item?.attributes?.length > 0 && item.attributes.map((attribute) => (
-                      {attribute?.name === "Size" && (
-                          <Size>
-                            <p>Size:</p>
-                            {attribute.items.map((size) => (<span id={size} key={size.value}>{size.value}</span>
-
-                      ))}
-                          </Size>
-          )}
-                      {attribute?.name === "Color" && (
-                        <Color>
-                          <h5>Color:</h5>
-                          {attribute.items.map(color => (<span style={{backgroundColor: color.value}}></span>))}
-                      </Color>
-                  )} */}
+								{item?.attributes?.length > 0 &&
+									item.attributes.map((attribute) => (
+										<>
+											{attribute?.name === "Size" && (
+												<Size>
+													<p>Size:</p>
+													{attribute.items.map(
+														(size) => (
+															<span
+																id={size}
+																key={
+																	size.value
+																}>
+																{size.value}
+															</span>
+														)
+													)}
+												</Size>
+											)}
+											{attribute?.name === "Color" && (
+												<Color>
+													<h5>Color:</h5>
+													{attribute.items.map(
+														(color) => (
+															<span
+																style={{
+																	backgroundColor:
+																		color.value,
+																}}></span>
+														)
+													)}
+												</Color>
+											)}
+										</>
+									))}
 							</ItemDescription>
 							<QuantityIcons>
 								<button
