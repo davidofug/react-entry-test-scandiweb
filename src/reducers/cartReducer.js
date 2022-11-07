@@ -34,8 +34,14 @@ export default function cartReducer(state = initialState, action) {
 			itemPosition = action.payload.item_position;
 			item = state.items[itemPosition];
 			newQuantity = item["quantity"] - action.payload.quantity;
-			item["quantity"] = newQuantity <= 0 ? 1 : newQuantity;
-			state.items[itemPosition] = item;
+			// item['quantity'] = newQuantity <= 0 ? 1 : newQuantity
+			if (newQuantity <= 0) {
+				state.items.splice(itemPosition, 1);
+			} else {
+				item["quantity"] = newQuantity;
+				state.items[itemPosition] = item;
+			}
+
 			localStorage.setItem("cart", JSON.stringify([...state.items]));
 
 			return {

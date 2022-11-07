@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../../components/constants";
 import { connect } from "react-redux";
+import NextCaret from "../../assets/icons/next.png";
+import PreviousCaret from "../../assets/icons/previous.png";
 import { addToQuantity, reduceToQuantity } from "../../actions/cartActions";
-// import Slider1 from "../../assets/icons/slider-left.png";
-// import Slider2 from "../../assets/icons/slider-right.png";
+import HeroSlider, { Slide } from "hero-slider";
+
 const CartDisplayLayout = styled.section`
-	width: 86%;
+	width: 88%;
 	gap: 20px;
 	display: flex;
 	flex-direction: column;
@@ -20,6 +22,7 @@ const CartDisplayLayout = styled.section`
 const Title = styled.h2`
 	font-family: ${FONTS.FAMILIES.RALEWAY};
 	font-weight: ${FONTS.WEIGHTS.LARGEST};
+	font-size: ${FONTS.SIZES.THIRTY};
 	color: ${COLORS.BLACK};
 	margin-bottom: 35px;
 `;
@@ -76,9 +79,9 @@ const Size = styled.p`
 `;
 const Color = styled.div`
 	margin-top: 7px;
-	> h3 {
+	> p {
 		font-family: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
-		font-weight: ${FONTS.WEIGHTS.LARGER};
+		font-weight: ${FONTS.WEIGHTS.LARGEST};
 		font-size: ${FONTS.SIZES.EIGHTEEN};
 		margin-bottom: 3px;
 	}
@@ -102,7 +105,6 @@ const QuantityIcons = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	margin-right: 24px;
-
 	> button {
 		height: 45px;
 		width: 45px;
@@ -120,6 +122,32 @@ const ImageContainer = styled.div`
 	flex: 1;
 	width: 200px;
 	height: 288px;
+	.hero-slider-previous-container,
+	.hero-slider-next-container {
+		height: 24px !important;
+		width: 24px !important;
+		margin-top: 220px;
+		background: transparent !important;
+	}
+	.hero-slider-previous-container {
+		margin-left: 140px;
+	}
+	.hero-slider-previous-container > .hero-slider-previous-button,
+	.hero-slider-next-container > .hero-slider-next-button {
+		width: 24px;
+		height: 24px;
+		cursor: pointer;
+	}
+	.hero-slider-previous-container > .hero-slider-previous-button {
+		background-image: url(${PreviousCaret});
+	}
+	.hero-slider-next-container > .hero-slider-next-button {
+		background-image: url(${NextCaret});
+	}
+	.hero-slider-previous-button svg,
+	.hero-slider-next-button svg {
+		display: none;
+	}
 `;
 const CartImage = styled.img`
 	position: absolute;
@@ -127,53 +155,34 @@ const CartImage = styled.img`
 	height: 100%;
 	z-index: 1;
 `;
-const SliderLeft = styled.img`
-	position: absolute;
-	background: ${COLORS.BLACK};
-	color: ${COLORS.WHITE};
-	width: 18px;
-	height: 20px;
-	text-align: center;
-	right: 25px;
-	bottom: 20px;
-	z-index: 2;
-	cursor: pointer;
-`;
-
-const SliderRight = styled.img`
-	position: absolute;
-	width: 18px;
-	text-align: center;
-	height: 20px;
-	background: ${COLORS.BLACK};
-	color: ${COLORS.WHITE};
-	cursor: pointer;
-	right: 50px;
-	bottom: 20px;
-	z-index: 2;
-`;
 
 const CheckOutDetails = styled.div`
-	> ul {
-		list-style-type: none;
-	}
-	> li {
+	> p {
 		margin: 8px 0;
-		font-size: ${FONTS.FAMILIES.TWENTY_FOUR};
+		font-size: ${FONTS.SIZES.TWENTY_FOUR};
 		font-family: ${FONTS.FAMILIES.RALEWAY};
-		font-weight: ${FONTS.WEIGHTS.LARGEST};
+		font-weight: ${FONTS.WEIGHTS.MEDIUM};
+		> span:last-child {
+			padding: 0 10px;
+			font-weight: ${FONTS.WEIGHTS.LARGEST};
+			font-family: ${FONTS.FAMILIES.RALEWAY};
+			font-size: ${FONTS.SIZES.TWENTY_FOUR};
+			margin-bottom: 16px;
+		}
 	}
 `;
 const OrderButton = styled.button`
+	width: 279px;
+	height: 43px;
+	text-align: center;
 	text-decoration: none;
 	margin-top: 14px;
 	background-color: ${COLORS.GREEN};
 	font-family: ${FONTS.FAMILIES.RALEWAY};
-	font-size: ${FONTS.SIZES.SIXTEEN};
+	font-size: ${FONTS.SIZES.FOURTEEN};
 	font-weight: ${FONTS.WEIGHTS.LARGER};
 	margin-bottom: 40px;
 	border: none;
-	color: ${COLORS.WHITE};
 	padding: 16px 32px;
 	cursor: pointer;
 	color: ${COLORS.WHITE};
@@ -234,12 +243,13 @@ class Cart extends Component {
 									{item.prices[0].currency.symbol}
 									{item.prices[0].amount}
 								</PriceLabel>
+
 								{item?.attributes?.length > 0 &&
 									item.attributes.map((attribute) => (
 										<>
 											{attribute?.name === "Size" && (
 												<Size>
-													<p>Size:</p>
+													<p>SIZE:</p>
 													{attribute.items.map(
 														(size) => (
 															<span
@@ -255,7 +265,7 @@ class Cart extends Component {
 											)}
 											{attribute?.name === "Color" && (
 												<Color>
-													<h5>Color:</h5>
+													<p>COLOR:</p>
 													{attribute.items.map(
 														(color) => (
 															<span
@@ -292,18 +302,40 @@ class Cart extends Component {
 							</QuantityIcons>
 
 							<ImageContainer>
-								<CartImage src={item.gallery[0]}></CartImage>
-								{/* <SliderLeft src={Slider1}></SliderLeft> */}
-								{/* <SliderRight src={Slider2}></SliderRight> */}
+								{item.gallery.length > 0 && (
+									<HeroSlider
+										height={"288px"}
+										width={"200px"}
+										controller={{
+											initialSlide: 1,
+											slidingDuration: 500,
+											slidingDelay: 100,
+										}}>
+										{item.gallery.map((galleryItem) => (
+											<Slide
+												background={{
+													backgroundImageSrc:
+														galleryItem,
+												}}
+											/>
+										))}
+									</HeroSlider>
+								)}
 							</ImageContainer>
 						</CartItem>
 					))}
 				<CheckOutDetails>
-					<ul>
-						<li>Tax 21%:{Number(this.state.tax).toFixed(2)}</li>
-						<li>Quantity:{this.state.quantity}</li>
-						<li>Total: {Number(this.state.total).toFixed(2)}</li>
-					</ul>
+					<p>
+						Tax 21%:{" "}
+						<span> ${Number(this.state.tax).toFixed(2)}</span>
+					</p>
+					<p>
+						Quantity:<span> {this.state.quantity}</span>
+					</p>
+					<p>
+						Total:{" "}
+						<span> ${Number(this.state.total).toFixed(2)}</span>
+					</p>
 
 					<OrderButton>Order</OrderButton>
 				</CheckOutDetails>
@@ -317,5 +349,4 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = { addToQuantity, reduceToQuantity };
-//We are not passing the second argument because at the moment we don't have any action creators to be connected to the Component.
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

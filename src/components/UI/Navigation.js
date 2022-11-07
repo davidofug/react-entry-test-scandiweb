@@ -3,14 +3,21 @@ import { Link } from "react-router-dom";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../constants";
 import CartIcon from "./CartIcon";
-import CurrencySwitcher from "./CurrencySwitcher";
-// import Actions from "./Actions";
 import Logo from "./Logo";
+import CurrencySwitcher from "./CurrencySwitcher";
 import { connect } from "react-redux";
 import { fetchNavItems } from "../../actions/navActions";
 import Modal from "./Modal";
 import Minicart from "./Minicart";
 
+const Inner = styled.section`
+	width: 88%;
+	margin: 0 auto;
+	justify-content: space-between;
+	align-items: center;
+	height: 80px;
+	display: flex;
+`;
 const Nav = styled.nav`
 	display: flex;
 	flex-direction: row;
@@ -56,18 +63,27 @@ const LogoView = styled.div`
 `;
 
 const Actions = styled.div`
+	position: relative;
 	display: flex;
 	gap: 15px;
 	justify-content: flex-end;
 	align-items: center;
 	flex: 1;
+	> span {
+		position: absolute;
+		background-color: ${COLORS.BLACK};
+		width: 30px;
+		height: 30px;
+		text-align: center;
+		display: flex;
+		justify-content: center;
+		border-radius: 100%;
+		color: ${COLORS.WHITE};
+		top: -30px;
+		left: 30px;
+	}
 `;
 class Navigation extends Component {
-	// constructor(props){
-	//   super(props)
-	//   // console.log(this.props)
-	// }
-
 	state = {
 		displayMinicart: false,
 		category: "",
@@ -85,11 +101,6 @@ class Navigation extends Component {
 	};
 
 	componentDidMount() {
-		// console.log(this.props.navItems)
-		// console.log(this.props.fetchNavItems())
-		// store.subscribe(() => console.log(store.getState()));
-		// setTimeout(() => {},500)
-
 		fetch(`${process.env.REACT_APP_URL}`, {
 			method: "POST",
 			headers: {
@@ -115,10 +126,10 @@ class Navigation extends Component {
 	render() {
 		const { navItems } = this.state;
 		return (
-			<>
+			<Inner>
 				<Nav>
 					<NavItem>
-						{navItems?.length > 0 &&
+						{navItems.length > 0 &&
 							navItems.map((navItem, index) => (
 								<li key={index.toString()} id={navItem.name}>
 									<StyledLink to={`/${navItem.name}`}>
@@ -134,23 +145,19 @@ class Navigation extends Component {
 				<Actions>
 					<CurrencySwitcher />
 					<CartIcon toggleMinicart={this.toggleMinicart} />
-					{this.props?.items?.length}
 				</Actions>
 				{this.state.displayMinicart && (
-					<Modal
-						onClick={this.closeModal}
-						style={{ display: "flex", justifyContent: "flex-end" }}>
+					<Modal onClick={this.closeModal}>
 						<Minicart />
 					</Modal>
 				)}
-			</>
+			</Inner>
 		);
 	}
 }
-
 const mapStoreToProps = (store) => ({
 	...store.navReducer,
-	...store.cartReducter,
+	...store.cartReducer,
 });
 
 const mapDispatchToProps = {
