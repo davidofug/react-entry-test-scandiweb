@@ -165,7 +165,6 @@ class Category extends Component {
 	}
 
 	render() {
-		console.log(this.props);
 		const { name, products } = this.state.selectedCategory;
 		const { currency, symbol } = this.props.currencyReducer;
 		return (

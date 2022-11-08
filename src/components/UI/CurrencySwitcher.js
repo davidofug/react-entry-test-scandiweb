@@ -74,13 +74,35 @@ class CurrencySwitcher extends Component {
 		this.currencyItem = React.createRef();
 		this.state = {
 			currencySwitch: false,
-			selectedCurrency: "$",
+			currencies: [],
+			currencyPosition: 0,
+			selectedCurrency: {},
 		};
 	}
 
 	componentDidMount() {
 		document.addEventListener("mousedown", this.handleClickOutside);
 		document.addEventListener("mousedown", this.handleSelectedCurrency);
+		fetch(`${process.env.REACT_APP_URL}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+			},
+			body: JSON.stringify({
+				query: ` {
+				currencies {
+					label,
+					symbol
+				}
+				}`,
+			}),
+		})
+			.then((response) => response.json())
+			.then((result) => {
+				this.setState({ currencies: result.data.currencies });
+			})
+			.catch((error) => console.log(error));
 	}
 
 	componentWillUnmount() {
@@ -116,56 +138,43 @@ class CurrencySwitcher extends Component {
 		}
 	};
 
+	onSelectCurrency = (index) => {
+		this.setState({
+			selectedCurrency: this.state.currencies[index],
+			currencyPosition: index,
+		});
+		this.props.switchCurrency({
+			position: index,
+			symbol: this.state.currencies[index].symbol,
+		});
+	};
+
 	render() {
 		return (
 			<Wrapper ref={this.wrapper} onClick={this.toggleCurrencySwitcher}>
-				<CurrencySymbol>{this.state.selectedCurrency}</CurrencySymbol>
+				<CurrencySymbol>
+					{this.state.selectedCurrency.symbol}
+				</CurrencySymbol>
 				<SelectWrapper>
 					<ChevronIcon
 						src={ChevrondownIconPath}
 						alt="Rotating-Chevron"></ChevronIcon>
 				</SelectWrapper>
 				<DropdownUl $currencyState={this.state.currencySwitch}>
-					<ListItem
-						className="currency-item"
-						$bg={
-							this.state.selectedCurrency === "$"
-								? COLORS.BACKGROUND.GRAY
-								: ""
-						}
-						data-position="0">
-						$ USD
-					</ListItem>
-					<ListItem
-						className="currency-item"
-						$bg={
-							this.state.selectedCurrency === "€"
-								? COLORS.BACKGROUND.GRAY
-								: ""
-						}
-						data-position="1">
-						€ EUR
-					</ListItem>
-					<ListItem
-						className="currency-item"
-						$bg={
-							this.state.selectedCurrency === "¥"
-								? COLORS.BACKGROUND.GRAY
-								: ""
-						}
-						data-position="2">
-						¥ JYP
-					</ListItem>
-					<ListItem
-						className="currency-item"
-						$bg={
-							this.state.selectedCurrency === "£"
-								? COLORS.BACKGROUND.GRAY
-								: ""
-						}
-						data-position="3">
-						£ GBP
-					</ListItem>
+					{this.state.currencies.map((currency, index) => (
+						<ListItem
+							key={index.toString()}
+							// className="currency-item"
+							$bg={
+								this.state.currencyPosition === index
+									? COLORS.BACKGROUND.GRAY
+									: ""
+							}
+							// data-position={index}
+							onClick={() => this.onSelectCurrency(index)}>
+							{currency.symbol} {currency.label}
+						</ListItem>
+					))}
 				</DropdownUl>
 			</Wrapper>
 		);
