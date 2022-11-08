@@ -138,6 +138,7 @@ class CurrencySwitcher extends Component {
 	};
 
 	render() {
+		const { currencies } = this.state;
 		return (
 			<Wrapper ref={this.wrapper} onClick={this.toggleCurrencySwitcher}>
 				<CurrencySymbol>
@@ -149,16 +150,14 @@ class CurrencySwitcher extends Component {
 						alt="Rotating-Chevron"></ChevronIcon>
 				</SelectWrapper>
 				<DropdownUl $currencyState={this.state.currencySwitch}>
-					{this.state.currencies.map((currency, index) => (
+					{currencies.map((currency, index) => (
 						<ListItem
 							key={index.toString()}
-							// className="currency-item"
 							$bg={
 								this.state.currencyPosition === index
 									? COLORS.BACKGROUND.GRAY
 									: ""
 							}
-							// data-position={index}
 							onClick={() => this.onSelectCurrency(index)}>
 							{currency.symbol} {currency.label}
 						</ListItem>
