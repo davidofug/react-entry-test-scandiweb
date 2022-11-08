@@ -261,7 +261,7 @@ class Minicart extends Component {
 	}
 	render() {
 		const items = this.props.items;
-		console.log(this.props);
+		const currency = this.props.currency;
 		return (
 			<MiniCartLayout>
 				<Title>
@@ -275,9 +275,11 @@ class Minicart extends Component {
 								<ProductName>{item.name}</ProductName>
 								<PriceLabel>
 									<strong>
-										{item.prices[0].currency.symbol}
+										{item.prices[currency].currency.symbol}
 									</strong>
-									<strong>{item.prices[0].amount}</strong>
+									<strong>
+										{item.prices[currency].amount}
+									</strong>
 								</PriceLabel>
 								{item?.attributes?.length > 0 &&
 									item.attributes.map((attribute) => (
@@ -337,8 +339,6 @@ class Minicart extends Component {
 
 							<ImageContainer>
 								<CartImage src={item.gallery[0]}></CartImage>
-								{/* <SliderLeft src={Slider1} alt = "left-chevron"></SliderLeft>
-                  <SliderRight src={Slider2} alt ="right-chevron"></SliderRight>  */}
 							</ImageContainer>
 						</CartItem>
 					))}

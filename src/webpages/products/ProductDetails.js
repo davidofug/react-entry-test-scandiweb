@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
 import { Link } from "react-router-dom";
-// import ProductSample from "../../../src/assets/icons/product-image.png";
 import { connect } from "react-redux";
 import { addToCart } from "../../actions/cartActions";
 const ProductDisplayLayout = styled.section`
@@ -124,8 +123,6 @@ const Price = styled.h3`
 class ProductDetails extends React.Component {
 	constructor(props) {
 		super(props);
-		/* 		console.log(this.props.product);
-		 */
 	}
 	state = {
 		selectedColor: "",
@@ -139,8 +136,6 @@ class ProductDetails extends React.Component {
 	};
 
 	componentDidMount() {
-		// Fetch product if user goes to the product page directly
-		//E.g: By visiting domain.tld/category/product-slug
 		const query = `query getProductBySlug($slug: String!) {
 			product(id: $slug) {
 				id
@@ -227,9 +222,6 @@ class ProductDetails extends React.Component {
 																			.target
 																			.id
 																	);
-																	// setTimeout(() => {
-																	//   console.log(this.state.selectedSize);
-																	// }, 1000); tO SET STATE YOU NEED A KEY
 																}}
 																key={
 																	size.value

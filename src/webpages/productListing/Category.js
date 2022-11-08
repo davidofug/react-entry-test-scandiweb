@@ -165,8 +165,9 @@ class Category extends Component {
 	}
 
 	render() {
-		//  console.log(this.props);
+		console.log(this.props);
 		const { name, products } = this.state.selectedCategory;
+		const { currency, symbol } = this.props.currencyReducer;
 		return (
 			<CategoryLayout>
 				<CategoryName>{name || "all"}</CategoryName>
@@ -178,6 +179,8 @@ class Category extends Component {
 								id={product.id}
 								product={product}
 								category={name}
+								currency={currency}
+								symbol={symbol}
 								setProductDetails={this.props.setProductDetails}
 							/>
 						))}
@@ -188,7 +191,8 @@ class Category extends Component {
 }
 export class ProductItem extends Component {
 	render() {
-		const { id, product, category, setProductDetails } = this.props;
+		const { id, product, category, setProductDetails, currency, symbol } =
+			this.props;
 		return (
 			<StyledLink
 				to={`/${category}/${id}`}
@@ -202,8 +206,8 @@ export class ProductItem extends Component {
 				</Title>
 				<PriceTag>
 					<strong>
-						{product.prices[0].currency.symbol}
-						{product.prices[0].amount}
+						{product.prices[currency].currency.symbol}
+						{product.prices[currency].amount}
 					</strong>
 				</PriceTag>
 			</StyledLink>
@@ -214,5 +218,4 @@ const mapStateToProps = (state) => ({
 	...state,
 });
 const mapDispatchToProps = { setProductDetails };
-//fetchNavItems,
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

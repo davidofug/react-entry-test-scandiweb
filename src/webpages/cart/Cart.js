@@ -340,7 +340,6 @@ class Cart extends Component {
 					<p>
 						Total:{" "}
 						<span>
-							{" "}
 							{currencySymbol}
 							{Number(this.state.total).toFixed(2)}
 						</span>

@@ -7,7 +7,7 @@ export default function currencyReducer(state = initialState, action) {
 	switch (action.type) {
 		case SWITCH_CURRENCY:
 			return {
-				currency: action.payload.currency ?? state.currency,
+				currency: action.payload.position ?? state.currency,
 				symbol: action.payload.symbol ?? state.symbol,
 			};
 		default:
