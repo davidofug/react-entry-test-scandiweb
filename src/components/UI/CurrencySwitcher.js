@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components/macro";
+import { connect } from "react-redux";
+import { switchCurrency } from "actions/currencyActions";
 import ChevrondownIconPath from "../../assets/icons/chevrondown.png";
 import { COLORS, FONTS } from "components/constants";
 const Wrapper = styled.div`
@@ -65,7 +67,7 @@ const ListItem = styled.li`
 	/* top:12px; */
 	background: ${(props) => props.$bg};
 `;
-export default class CurrencySwitcher extends Component {
+class CurrencySwitcher extends Component {
 	constructor() {
 		super();
 		this.wrapper = React.createRef();
@@ -106,13 +108,11 @@ export default class CurrencySwitcher extends Component {
 			const currency = event.target?.innerText;
 			const currencyParts = currency.split(" ");
 			const symbol = currencyParts[0];
-			// const name = currencyParts[1]
-
+			const position = event.target.getAttribute("data-position");
+			this.props.switchCurrency({ position, symbol });
 			this.setState({
 				selectedCurrency: symbol,
 			});
-
-			console.log(symbol);
 		}
 	};
 
@@ -132,7 +132,8 @@ export default class CurrencySwitcher extends Component {
 							this.state.selectedCurrency === "$"
 								? COLORS.BACKGROUND.GRAY
 								: ""
-						}>
+						}
+						data-position="0">
 						$ USD
 					</ListItem>
 					<ListItem
@@ -141,7 +142,8 @@ export default class CurrencySwitcher extends Component {
 							this.state.selectedCurrency === "€"
 								? COLORS.BACKGROUND.GRAY
 								: ""
-						}>
+						}
+						data-position="1">
 						€ EUR
 					</ListItem>
 					<ListItem
@@ -150,7 +152,8 @@ export default class CurrencySwitcher extends Component {
 							this.state.selectedCurrency === "¥"
 								? COLORS.BACKGROUND.GRAY
 								: ""
-						}>
+						}
+						data-position="2">
 						¥ JYP
 					</ListItem>
 					<ListItem
@@ -159,7 +162,8 @@ export default class CurrencySwitcher extends Component {
 							this.state.selectedCurrency === "£"
 								? COLORS.BACKGROUND.GRAY
 								: ""
-						}>
+						}
+						data-position="3">
 						£ GBP
 					</ListItem>
 				</DropdownUl>
@@ -167,3 +171,11 @@ export default class CurrencySwitcher extends Component {
 		);
 	}
 }
+
+const mapStateToProps = (store) => ({
+	...store.currencyReducer,
+});
+
+const mapDispatchToProps = { switchCurrency };
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencySwitcher);

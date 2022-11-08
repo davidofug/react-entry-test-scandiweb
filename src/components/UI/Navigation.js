@@ -117,7 +117,6 @@ class Navigation extends Component {
 		})
 			.then((response) => response.json())
 			.then((result) => {
-				console.log(result);
 				this.setState({ navItems: result.data.categories });
 			})
 			.catch((error) => console.log(error));

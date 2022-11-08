@@ -230,6 +230,8 @@ class Cart extends Component {
 
 	render() {
 		const items = this.props.items;
+		const currency = Number(this.props.currency);
+		const currencySymbol = this.props.symbol;
 		return (
 			<CartDisplayLayout>
 				<Title>CART</Title>
@@ -240,8 +242,8 @@ class Cart extends Component {
 								<Brand>{item.brand}</Brand>
 								<ProductName>{item.name}</ProductName>
 								<PriceLabel>
-									{item.prices[0].currency.symbol}
-									{item.prices[0].amount}
+									{item.prices[currency].currency.symbol}
+									{item.prices[currency].amount}
 								</PriceLabel>
 
 								{item?.attributes?.length > 0 &&
@@ -327,14 +329,21 @@ class Cart extends Component {
 				<CheckOutDetails>
 					<p>
 						Tax 21%:{" "}
-						<span> ${Number(this.state.tax).toFixed(2)}</span>
+						<span>
+							{currencySymbol}
+							{Number(this.state.tax).toFixed(2)}
+						</span>
 					</p>
 					<p>
 						Quantity:<span> {this.state.quantity}</span>
 					</p>
 					<p>
 						Total:{" "}
-						<span> ${Number(this.state.total).toFixed(2)}</span>
+						<span>
+							{" "}
+							{currencySymbol}
+							{Number(this.state.total).toFixed(2)}
+						</span>
 					</p>
 
 					<OrderButton>Order</OrderButton>
@@ -346,6 +355,7 @@ class Cart extends Component {
 
 const mapStateToProps = (state) => ({
 	...state.cartReducer,
+	...state.currencyReducer,
 });
 
 const mapDispatchToProps = { addToQuantity, reduceToQuantity };

@@ -360,6 +360,7 @@ class Minicart extends Component {
 }
 const mapStateToProps = (state) => ({
 	...state.cartReducer,
+	...state.currencyReducer,
 });
 
 const mapDispatchToProps = { addToQuantity, reduceToQuantity };
