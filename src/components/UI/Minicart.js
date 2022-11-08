@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../constants";
 import { connect } from "react-redux";
-// import Slider1 from "../../assets/icons/slider-left.png";
-// import Slider2 from "../../assets/icons/slider-right.png";
 import { addToQuantity, reduceToQuantity } from "actions/cartActions";
 const MiniCartLayout = styled.aside`
 	position: absolute;
@@ -148,30 +146,7 @@ const CheckOutDetails = styled.div`
 		font-weight: ${FONTS.WEIGHTS.LARGEST};
 	}
 `;
-const SliderLeft = styled.img`
-	position: absolute;
-	background: ${COLORS.BLACK};
-	color: ${COLORS.WHITE};
-	width: 24px;
-	height: 24px;
-	text-align: center;
-	right: 25px;
-	bottom: 20px;
-	z-index: 2;
-	cursor: pointer;
-`;
-const SliderRight = styled.img`
-	position: absolute;
-	width: 24px;
-	text-align: center;
-	height: 24px;
-	background: ${COLORS.BLACK};
-	color: ${COLORS.WHITE};
-	cursor: pointer;
-	right: 50px;
-	bottom: 20px;
-	z-index: 2;
-`;
+
 const CheckOutTotal = styled.div`
 	display: flex;
 	justify-content: space-between;
