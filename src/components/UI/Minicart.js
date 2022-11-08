@@ -347,7 +347,10 @@ class Minicart extends Component {
 						<p>
 							<strong>Total</strong>
 						</p>
-						<strong>{this.state.total}</strong>
+						<strong>
+							{this.props.symbol}
+							{this.state.total}
+						</strong>
 					</CheckOutTotal>
 					<ButtonContainer>
 						<ViewBag>ViewBag</ViewBag>

@@ -176,6 +176,7 @@ class ProductDetails extends React.Component {
 
 	render() {
 		const PRODUCT = this.state.product || this.props.product;
+		const { currency, symbol } = this.props;
 		if (PRODUCT?.name)
 			return (
 				<>
@@ -280,9 +281,9 @@ class ProductDetails extends React.Component {
 							<Price>
 								Price:
 								<span>
-									{PRODUCT.prices[0].currency.symbol}
-									{PRODUCT.prices[0].amount}
-									{PRODUCT.prices[0].currency.label}
+									{PRODUCT.prices[currency].currency.symbol}
+									{PRODUCT.prices[currency].amount}
+									{PRODUCT.prices[currency].currency.label}
 								</span>
 							</Price>
 
@@ -311,6 +312,7 @@ class ProductDetails extends React.Component {
 
 const mapStateToProps = (state) => ({
 	...state.productReducer,
+	...state.currencyReducer,
 });
 const mapDispatchToProps = { addToCart };
 
