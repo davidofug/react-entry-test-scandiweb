@@ -101,6 +101,7 @@ class CurrencySwitcher extends Component {
 			.then((response) => response.json())
 			.then((result) => {
 				this.setState({ currencies: result.data.currencies });
+				this.setState({ selectedCurrency: result.data.currencies[0] });
 			})
 			.catch((error) => console.log(error));
 	}
@@ -121,19 +122,6 @@ class CurrencySwitcher extends Component {
 		) {
 			this.setState({
 				currencySwitch: false,
-			});
-		}
-	};
-
-	handleSelectedCurrency = (event) => {
-		if (event.target.classList.contains("currency-item")) {
-			const currency = event.target?.innerText;
-			const currencyParts = currency.split(" ");
-			const symbol = currencyParts[0];
-			const position = event.target.getAttribute("data-position");
-			this.props.switchCurrency({ position, symbol });
-			this.setState({
-				selectedCurrency: symbol,
 			});
 		}
 	};
