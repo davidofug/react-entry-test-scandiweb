@@ -349,7 +349,7 @@ class Minicart extends Component {
 						</p>
 						<strong>
 							{this.props.symbol}
-							{this.state.total}
+							{Number(this.state.total).toFixed(2)}
 						</strong>
 					</CheckOutTotal>
 					<ButtonContainer>
