@@ -2,15 +2,14 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
 import CircleCartIcon from "../../assets/icons/Circle-Cart-Icon.png";
-import { connect } from "react-redux";
-// import { fetchNavItems } from "../../actions/navActions";
 import { setProductDetails } from "../../actions/productActions";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 const CategoryLayout = styled.main`
 	box-sizing: border-box;
 	overflow: hidden;
 	color: ${COLORS.BLACK};
-	width: 86%;
+	width: 88%;
 	margin: 0 auto;
 	min-height: 100%;
 `;
@@ -22,30 +21,26 @@ const CategoryName = styled.h1`
 	line-height: 67.2px;
 	text-transform: capitalize;
 	margin-bottom: 103px;
-	padding-top: 20px;
-	padding-bottom: 30px;
 `;
 const ProductList = styled.div`
-	position: relative;
-	gap: 24px;
 	display: flex;
-	flex-direction: row;
 	flex-wrap: wrap;
+	position: relative;
+	gap: 40px;
 	background-color: ${COLORS.WHITE};
 	padding-bottom: 40px;
 `;
 const StyledLink = styled(Link)`
 	display: flex;
 	flex-direction: column;
-	box-sizing: border-box;
-	height: 444px;
-	/* width:356px; */
-	cursor: pointer;
-	padding: 16px;
 	position: relative;
+	height: 444px;
+	padding: 16px;
+	box-sizing: border-box;
 	text-decoration: none;
-	border-radius: 5px;
+	border-radius: 4px;
 	color: ${COLORS.BLACK};
+	cursor: pointer;
 	&:hover {
 		box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 		transition: box-shadow 400ms ease-in-out;
@@ -69,6 +64,7 @@ const StyledLink = styled(Link)`
 	}
 `;
 const StyledFigure = styled.figure``;
+
 const ProductImage = styled.img`
 	height: 354px;
 	width: 330px;
@@ -142,16 +138,11 @@ class Category extends Component {
 			.then((results) => {
 				const categories = results.data.categories;
 				this.setState({ categories: categories });
-				// this.props.fetchNavItems(
-				// 	categories.map((category) => category.name)
-				// );
 			});
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
-		// console.log(prevState)
 		const category = this.props.params?.category || "all";
-		// console.log(category)
 		const extractedCategories = this.state.categories.filter(
 			(myCategory) => myCategory.name === category
 		);
@@ -165,8 +156,9 @@ class Category extends Component {
 	}
 
 	render() {
-		const { name, products } = this.state.selectedCategory;
+		// console.log(this.props);
 		const { currency, symbol } = this.props.currencyReducer;
+		const { name, products } = this.state.selectedCategory;
 		return (
 			<CategoryLayout>
 				<CategoryName>{name || "all"}</CategoryName>
