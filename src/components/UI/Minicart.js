@@ -240,7 +240,13 @@ class Minicart extends Component {
 		return (
 			<MiniCartLayout>
 				<Title>
-					My Bag, <span>{this.state.quantity} items</span>
+					My Bag
+					{this.state.quantity > 0 && (
+						<span>
+							, {this.state.quantity}{" "}
+							{this.state.quantity > 1 ? "items" : "item"}
+						</span>
+					)}
 				</Title>
 				{items?.length > 0 &&
 					items.map((item, index) => (
