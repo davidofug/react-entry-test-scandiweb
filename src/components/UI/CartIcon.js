@@ -41,7 +41,9 @@ class CartIcon extends Component {
 					alt="Cart-Icon"
 					onClick={() => this.props.toggleMinicart()}
 				/>
-				<span>{this.returnQuantity()}</span>
+				{this.returnQuantity() > 0 && (
+					<span>{this.returnQuantity()}</span>
+				)}
 			</IconWrapper>
 		);
 	}

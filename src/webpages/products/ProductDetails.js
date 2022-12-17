@@ -1,4 +1,5 @@
 import React from "react";
+import parse from "html-react-parser";
 import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
 import { Link } from "react-router-dom";
@@ -293,10 +294,11 @@ class ProductDetails extends React.Component {
 								Add To Cart
 							</AddToCartBtn>
 							<DescriptionText>
-								<div
+								{parse(PRODUCT.description)}
+								{/* 								<div
 									dangerouslySetInnerHTML={{
-										__html: PRODUCT.description,
-									}}></div>
+										__html: ,
+									}}></div> */}
 							</DescriptionText>
 						</ProductInfo>
 					</ProductDisplayLayout>
