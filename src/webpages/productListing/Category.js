@@ -63,6 +63,40 @@ const StyledLink = styled(Link)`
 		opacity: 1;
 	}
 `;
+const OutOfStockLink = styled(Link)`
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	height: 444px;
+	padding: 16px;
+	box-sizing: border-box;
+	text-decoration: none;
+	border-radius: 4px;
+	color: ${COLORS.GRAY};
+	cursor: pointer;
+	&:hover {
+		box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+		transition: box-shadow 400ms ease-in-out;
+	}
+
+	&::after {
+		content: "";
+		opacity: 0;
+		background-image: url(${CircleCartIcon});
+		background-size: cover;
+		position: absolute;
+		bottom: 46px;
+		right: 20px;
+		width: 52px;
+		height: 52px;
+		transition: opacity 500ms ease-in-out;
+		z-index: 15;
+	}
+	&:hover::after {
+		opacity: 1;
+	}
+`;
+
 const StyledFigure = styled.figure``;
 
 const ProductImage = styled.img`
@@ -216,7 +250,7 @@ export class ProductItem extends Component {
 			);
 
 		return (
-			<StyledLink
+			<OutOfStockLink
 				to={`/${category}/${id}`}
 				onClick={() => setProductDetails({ category, ...product })}>
 				<StyledFigure>
@@ -233,7 +267,7 @@ export class ProductItem extends Component {
 						{product.prices[currency].amount}
 					</strong>
 				</PriceTag>
-			</StyledLink>
+			</OutOfStockLink>
 		);
 	}
 }
