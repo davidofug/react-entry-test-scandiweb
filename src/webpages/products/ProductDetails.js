@@ -162,14 +162,17 @@ class ProductDetails extends React.Component {
 			}
 		}`;
 		const variables = { slug: this?.props?.params?.id };
-		fetch(`${process.env.REACT_APP_URL}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify({ query, variables }),
-		})
+		fetch(
+			"http://localhost:4000/graphql" || `${process.env.REACT_APP_URL}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify({ query, variables }),
+			}
+		)
 			.then((response) => response.json())
 			.then((result) => this.setState({ product: result.data.product }))
 			.catch((error) => console.log(error));
@@ -284,15 +287,21 @@ class ProductDetails extends React.Component {
 								<span>
 									{PRODUCT.prices[currency].currency.symbol}
 									{PRODUCT.prices[currency].amount}
-									{PRODUCT.prices[currency].currency.label}
+									{/* {PRODUCT.prices[currency].currency.label} */}
 								</span>
 							</Price>
 
-							<AddToCartBtn
-								to="/cart"
-								onClick={() => this.props.addToCart(PRODUCT)}>
-								Add To Cart
-							</AddToCartBtn>
+							{PRODUCT?.inStock ? (
+								<AddToCartBtn
+									to="/cart"
+									onClick={() =>
+										this.props.addToCart(PRODUCT)
+									}>
+									Add To Cart
+								</AddToCartBtn>
+							) : (
+								<h1>OUT OF STOCK</h1>
+							)}
 							<DescriptionText>
 								{parse(PRODUCT.description)}
 								{/* 								<div
