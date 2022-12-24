@@ -96,14 +96,16 @@ class Category extends Component {
 	};
 
 	componentDidMount() {
-		fetch(`${process.env.REACT_APP_URL}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify({
-				query: `
+		fetch(
+			"http://localhost:4000/graphql" || `${process.env.REACT_APP_URL}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify({
+					query: `
       {
         categories{
           name
@@ -132,8 +134,9 @@ class Category extends Component {
       }
 
       `,
-			}),
-		})
+				}),
+			}
+		)
 			.then((response) => response.json())
 			.then((results) => {
 				const categories = results.data.categories;
@@ -181,15 +184,44 @@ class Category extends Component {
 	}
 }
 export class ProductItem extends Component {
+	constructor(props) {
+		super(props);
+		// console.log(this.props.product.name, "=", this.props.product.inStock);
+	}
 	render() {
 		const { id, product, category, setProductDetails, currency, symbol } =
 			this.props;
+		if (product?.inStock)
+			return (
+				<StyledLink
+					to={`/${category}/${id}`}
+					onClick={() => setProductDetails({ category, ...product })}>
+					<StyledFigure>
+						<ProductImage
+							src={product.gallery[0]}
+							alt={product.name}
+						/>
+					</StyledFigure>
+					<Title>
+						{product.name}
+						<span>{product.brand}</span>
+					</Title>
+					<PriceTag>
+						<strong>
+							{product.prices[currency].currency.symbol}
+							{product.prices[currency].amount}
+						</strong>
+					</PriceTag>
+				</StyledLink>
+			);
+
 		return (
 			<StyledLink
 				to={`/${category}/${id}`}
 				onClick={() => setProductDetails({ category, ...product })}>
 				<StyledFigure>
 					<ProductImage src={product.gallery[0]} alt={product.name} />
+					<h1>Out of Stock</h1>
 				</StyledFigure>
 				<Title>
 					{product.name}
