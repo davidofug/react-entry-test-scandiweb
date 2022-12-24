@@ -83,21 +83,24 @@ class CurrencySwitcher extends Component {
 	componentDidMount() {
 		document.addEventListener("mousedown", this.handleClickOutside);
 		document.addEventListener("mousedown", this.handleSelectedCurrency);
-		fetch(`${process.env.REACT_APP_URL}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify({
-				query: ` {
+		fetch(
+			"http://localhost:4000/graphql" || `${process.env.REACT_APP_URL}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify({
+					query: ` {
 				currencies {
 					label,
 					symbol
 				}
 				}`,
-			}),
-		})
+				}),
+			}
+		)
 			.then((response) => response.json())
 			.then((result) => {
 				this.setState({ currencies: result.data.currencies });

@@ -101,20 +101,23 @@ class Navigation extends Component {
 	};
 
 	componentDidMount() {
-		fetch(`${process.env.REACT_APP_URL}`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-			body: JSON.stringify({
-				query: ` {
+		fetch(
+			"http://localhost:4000/graphql" || `${process.env.REACT_APP_URL}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify({
+					query: ` {
           categories {
             name
           }
         }`,
-			}),
-		})
+				}),
+			}
+		)
 			.then((response) => response.json())
 			.then((result) => {
 				this.setState({ navItems: result.data.categories });
