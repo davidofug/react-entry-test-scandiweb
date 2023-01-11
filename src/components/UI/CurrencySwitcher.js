@@ -68,14 +68,14 @@ const ListItem = styled.li`
 	background: ${(props) => props.$bg};
 `;
 class CurrencySwitcher extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.wrapper = React.createRef();
 		this.currencyItem = React.createRef();
 		this.state = {
 			currencySwitch: false,
 			currencies: [],
-			currencyPosition: 0,
+			currencyPosition: props.currency,
 			selectedCurrency: {},
 		};
 	}
@@ -141,12 +141,11 @@ class CurrencySwitcher extends Component {
 	};
 
 	render() {
+		console.log(this.props);
 		const { currencies } = this.state;
 		return (
 			<Wrapper ref={this.wrapper} onClick={this.toggleCurrencySwitcher}>
-				<CurrencySymbol>
-					{this.state.selectedCurrency.symbol}
-				</CurrencySymbol>
+				<CurrencySymbol>{this.props.symbol}</CurrencySymbol>
 				<SelectWrapper>
 					<ChevronIcon
 						src={ChevrondownIconPath}
