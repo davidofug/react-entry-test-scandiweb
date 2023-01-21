@@ -133,7 +133,6 @@ const Size = styled.span`
 	text-align: center;
 	line-height: 28px;
 	cursor: pointer;
-
 	&:hover {
 		background-color: ${COLORS.BLACK};
 		color: ${COLORS.WHITE};
@@ -155,6 +154,9 @@ const ColorSwatch = styled.div`
 		border: 1px solid gray;
 		border-radius: 1px;
 		cursor: pointer;
+	}
+	> span.selected {
+		border: 1px solid red;
 	}
 `;
 
@@ -253,24 +255,35 @@ class ProductDetails extends React.Component {
 												<SizeLabel>Size:</SizeLabel>
 												<p>
 													{attribute?.items.map(
-														(size) => (
-															<Size
-																id={size.value}
-																onClick={(
-																	event
-																) => {
-																	console.log(
+														(size) => {
+															console.log(size);
+															return (
+																<Size
+																	isSelected={
+																		size?.selected
+																	}
+																	id={
+																		size.value
+																	}
+																	onClick={(
 																		event
-																			.target
-																			.id
-																	);
-																}}
-																key={
-																	size.value
-																}>
-																{size.value}
-															</Size>
-														)
+																	) => {
+																		console.log(
+																			{
+																				name: "Size",
+																				value: event
+																					.target
+																					.id,
+																			}
+																		);
+																	}}
+																	key={
+																		size.value
+																	}>
+																	{size.value}
+																</Size>
+															);
+														}
 													)}
 												</p>
 											</>
@@ -284,6 +297,11 @@ class ProductDetails extends React.Component {
 															<span
 																key={
 																	color.value
+																}
+																className={
+																	color?.selected
+																		? "selected"
+																		: ""
 																}
 																style={{
 																	backgroundColor:

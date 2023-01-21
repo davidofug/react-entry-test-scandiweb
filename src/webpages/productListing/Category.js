@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 import { COLORS, FONTS } from "../../components/constants";
 import CircleCartIcon from "../../assets/icons/Circle-Cart-Icon.png";
 import { setProductDetails } from "../../actions/productActions";
+import { addToCart } from "../../actions/cartActions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 const CategoryLayout = styled.main`
@@ -71,23 +72,6 @@ const OutOfStockLink = styled(Link)`
 		box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 		transition: box-shadow 400ms ease-in-out;
 	}
-
-	/* &::after {
-		content: "";
-		opacity: 0;
-		background-image: url(${CircleCartIcon});
-		background-size: cover;
-		position: absolute;
-		bottom: 46px;
-		right: 20px;
-		width: 52px;
-		height: 52px;
-		transition: opacity 500ms ease-in-out;
-		z-index: 15;
-	}
-	&:hover::after {
-		opacity: 1;
-	} */
 `;
 
 const StyledFigure = styled.figure``;
@@ -119,6 +103,11 @@ const PriceTag = styled.h5`
 `;
 
 const StockOutTitle = styled.h1`
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	line-height: 160%;
 	font-family: ${FONTS.FAMILIES.RALEWAY};
 	font-size: ${FONTS.SIZES.TWENTY_FOUR};
 	font-weight: ${FONTS.WEIGHTS.MEDIUM};
@@ -211,6 +200,7 @@ class Category extends Component {
 								currency={currency}
 								symbol={symbol}
 								setProductDetails={this.props.setProductDetails}
+								addToCart={this.props.addToCart}
 							/>
 						))}
 				</ProductList>
@@ -228,22 +218,44 @@ export class ProductItem extends Component {
 	}
 
 	render() {
-		const { id, product, category, setProductDetails, currency, symbol } =
-			this.props;
-
+		const {
+			id,
+			product,
+			category,
+			setProductDetails,
+			currency,
+			symbol,
+			addToCart,
+		} = this.props;
 		const bagIcon = this.state.hovered && (
 			<BagIcon
 				src={CircleCartIcon}
 				onClick={(event) => {
 					event.preventDefault();
-					console.log(product.attributes);
 					if (product?.attributes.length > 0) {
-						//Select and set default attributes
+						const { attributes } = product;
+						// console.log(attributes);
+						//1. Select default attributes
+						//i.Loop through the attributes
+						//ii.For each attribute, set the first item as selected
 						// Add to cart
-					} else {
-						//Donot select and set attributes
-						//Add item to cart
+						//We need to find the find the attribute then set the first item to selected. */
+
+						const modifiedAttributes = attributes.map(
+							(attribute) => {
+								// const default_selected_item = {
+								// 	selected: true,
+								// 	...attribute.items[0],
+								// };
+								// attribute.items[0] = default_selected_item;
+								attribute.items[0]["selected"] = true;
+								return attribute;
+							}
+						);
+						product["attributes"] = modifiedAttributes;
+						console.log(product);
 					}
+					addToCart(product);
 				}}
 			/>
 		);
@@ -310,5 +322,5 @@ export class ProductItem extends Component {
 const mapStateToProps = (state) => ({
 	...state,
 });
-const mapDispatchToProps = { setProductDetails };
+const mapDispatchToProps = { setProductDetails, addToCart };
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

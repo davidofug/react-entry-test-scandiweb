@@ -1,6 +1,5 @@
 import { SWITCH_CURRENCY } from "../actions/types";
 const currencySettings = JSON.parse(localStorage.getItem("currency")) || null;
-console.log(currencySettings);
 const initialState = {
 	currency: currencySettings?.currency || 0,
 	symbol: currencySettings?.symbol || "$",

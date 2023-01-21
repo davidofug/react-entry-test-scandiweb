@@ -76,6 +76,9 @@ const Size = styled.p`
 			color: ${COLORS.WHITE};
 		}
 	}
+	> span.selected {
+		border-color: red;
+	}
 `;
 const Color = styled.div`
 	margin-top: 7px;
@@ -94,6 +97,9 @@ const Color = styled.div`
 		text-align: center;
 		border-radius: 1px;
 		cursor: pointer;
+	}
+	> span.selected {
+		border-color: red;
 	}
 `;
 
@@ -255,7 +261,11 @@ class Cart extends Component {
 													{attribute.items.map(
 														(size) => (
 															<span
-																id={size}
+																className={
+																	size?.selected &&
+																	"selected"
+																}
+																id={size.value}
 																key={
 																	size.value
 																}>
@@ -271,6 +281,10 @@ class Cart extends Component {
 													{attribute.items.map(
 														(color) => (
 															<span
+																className={
+																	color?.selected &&
+																	"selected"
+																}
 																style={{
 																	backgroundColor:
 																		color.value,
