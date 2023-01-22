@@ -4,6 +4,7 @@ import { COLORS, FONTS } from "../../components/constants";
 import CircleCartIcon from "../../assets/icons/Circle-Cart-Icon.png";
 import { setProductDetails } from "../../actions/productActions";
 import { addToCart } from "../../actions/cartActions";
+import { setDefaultAttributes } from "components/utils/functions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 const CategoryLayout = styled.main`
@@ -232,30 +233,8 @@ export class ProductItem extends Component {
 				src={CircleCartIcon}
 				onClick={(event) => {
 					event.preventDefault();
-					if (product?.attributes.length > 0) {
-						const { attributes } = product;
-						// console.log(attributes);
-						//1. Select default attributes
-						//i.Loop through the attributes
-						//ii.For each attribute, set the first item as selected
-						// Add to cart
-						//We need to find the find the attribute then set the first item to selected. */
-
-						const modifiedAttributes = attributes.map(
-							(attribute) => {
-								// const default_selected_item = {
-								// 	selected: true,
-								// 	...attribute.items[0],
-								// };
-								// attribute.items[0] = default_selected_item;
-								attribute.items[0]["selected"] = true;
-								return attribute;
-							}
-						);
-						product["attributes"] = modifiedAttributes;
-						console.log(product);
-					}
-					addToCart(product);
+					const theProduct = setDefaultAttributes(product);
+					addToCart(theProduct);
 				}}
 			/>
 		);

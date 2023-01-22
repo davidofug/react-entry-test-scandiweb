@@ -5,6 +5,10 @@ import { COLORS, FONTS } from "../../components/constants";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addToCart } from "../../actions/cartActions";
+import {
+	setDefaultAttributes,
+	setAnAttribute,
+} from "components/utils/functions";
 const ProductDisplayLayout = styled.section`
 	width: 88%;
 	gap: 20px;
@@ -292,7 +296,7 @@ class ProductDetails extends React.Component {
 											<ColorSwatch>
 												<ColorLabel>Color:</ColorLabel>
 												{attribute?.items?.map(
-													(color) => {
+													(color, index) => {
 														return (
 															<span
 																key={
@@ -310,6 +314,15 @@ class ProductDetails extends React.Component {
 																onClick={(
 																	event
 																) => {
+																	PRODUCT[
+																		"attributes"
+																	] =
+																		setAnAttribute(
+																			PRODUCT,
+																			attribute?.name,
+																			index
+																		);
+
 																	this.setState(
 																		{
 																			selectedColor:
@@ -318,16 +331,6 @@ class ProductDetails extends React.Component {
 																					.style
 																					.backgroundColor,
 																		}
-																	);
-																	setTimeout(
-																		() => {
-																			console.log(
-																				this
-																					.state
-																					.selectedColor
-																			);
-																		},
-																		2000
 																	);
 																}}></span>
 														);
@@ -348,9 +351,11 @@ class ProductDetails extends React.Component {
 							{PRODUCT?.inStock ? (
 								<AddToCartBtn
 									to="/cart"
-									onClick={() =>
-										this.props.addToCart(PRODUCT)
-									}>
+									onClick={() => {
+										const theProduct =
+											setDefaultAttributes(PRODUCT);
+										this.props.addToCart(theProduct);
+									}}>
 									Add To Cart
 								</AddToCartBtn>
 							) : (
