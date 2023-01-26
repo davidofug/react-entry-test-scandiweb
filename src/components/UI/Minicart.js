@@ -263,15 +263,14 @@ class Minicart extends Component {
 									</strong>
 								</PriceLabel>
 								{item?.attributes?.length > 0 &&
-									item.attributes.map((attribute) => (
-										<>
+									item.attributes.map((attribute, index) => (
+										<div key={index.toString()}>
 											{attribute?.name === "Size" && (
 												<Size>
 													<p>Size:</p>
 													{attribute.items.map(
 														(size) => (
 															<span
-																id={size}
 																key={
 																	size.value
 																}>
@@ -287,6 +286,9 @@ class Minicart extends Component {
 													{attribute.items.map(
 														(color) => (
 															<span
+																key={
+																	color.value
+																}
 																style={{
 																	backgroundColor:
 																		color.value,
@@ -295,7 +297,7 @@ class Minicart extends Component {
 													)}
 												</Color>
 											)}
-										</>
+										</div>
 									))}
 							</ItemDescription>
 							<QuantityIcons>

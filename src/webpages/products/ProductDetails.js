@@ -126,20 +126,25 @@ const ProductTile = styled.img`
 	width: 79px;
 	height: 80px;
 `;
-const Size = styled.span`
-	font-family: ${FONTS.FAMILIES.ROBOTO};
-	font-size: ${FONTS.SIZES.TEN};
-	border: 1px solid ${COLORS.BLACK};
-	width: 40px;
-	height: 28px;
-	display: inline-block;
-	margin-right: 4px;
-	text-align: center;
-	line-height: 28px;
-	cursor: pointer;
-	&:hover {
+const Size = styled.aside`
+	span {
+		font-family: ${FONTS.FAMILIES.ROBOTO};
+		font-size: ${FONTS.SIZES.TEN};
+		border: 1px solid ${COLORS.BLACK};
+		width: 40px;
+		height: 28px;
+		display: inline-block;
+		margin-right: 4px;
+		text-align: center;
+		line-height: 28px;
+		cursor: pointer;
+	}
+	span:hover {
 		background-color: ${COLORS.BLACK};
 		color: ${COLORS.WHITE};
+	}
+	span.selected {
+		border: 1px solid red;
 	}
 `;
 const ColorSwatch = styled.div`
@@ -252,102 +257,105 @@ class ProductDetails extends React.Component {
 							<ProductName>{PRODUCT.name}</ProductName>
 							<ProductBrand>{PRODUCT.brand}</ProductBrand>
 							{PRODUCT?.attributes?.length > 0 &&
-								PRODUCT.attributes.map((attribute, index) => (
-									<div key={index.toString()}>
-										{attribute?.name === "Size" && (
-											<>
-												<SizeLabel>Size:</SizeLabel>
-												<p>
-													{attribute?.items.map(
-														(size) => {
-															console.log(size);
+								PRODUCT.attributes.map(
+									(attribute, position) => (
+										<div key={position.toString()}>
+											{attribute?.name === "Size" && (
+												<Size>
+													<SizeLabel>Size:</SizeLabel>
+													<p>
+														{attribute?.items.map(
+															(size, index) => {
+																return (
+																	<span
+																		className={
+																			size?.selected
+																				? "selected"
+																				: "deselected"
+																		}
+																		onClick={() => {
+																			PRODUCT[
+																				"attributes"
+																			] =
+																				setAnAttribute(
+																					PRODUCT,
+																					attribute?.name,
+																					index
+																				);
+
+																			this.setState(
+																				{
+																					product:
+																						PRODUCT,
+																				}
+																			);
+																		}}
+																		key={
+																			size.value
+																		}>
+																		{
+																			size.value
+																		}
+																	</span>
+																);
+															}
+														)}
+													</p>
+												</Size>
+											)}
+											{attribute?.name === "Color" && (
+												<ColorSwatch>
+													<ColorLabel>
+														Color:
+													</ColorLabel>
+													{attribute?.items?.map(
+														(color, index) => {
 															return (
-																<Size
-																	isSelected={
-																		size?.selected
+																<span
+																	key={
+																		color.value
 																	}
-																	id={
-																		size.value
+																	className={
+																		color?.selected
+																			? "selected"
+																			: "deselected"
 																	}
-																	onClick={(
-																		event
-																	) => {
-																		console.log(
+																	style={{
+																		backgroundColor:
+																			color.value,
+																	}}
+																	onClick={() => {
+																		PRODUCT[
+																			"attributes"
+																		] =
+																			setAnAttribute(
+																				PRODUCT,
+																				attribute?.name,
+																				index
+																			);
+
+																		this.setState(
 																			{
-																				name: "Size",
-																				value: event
-																					.target
-																					.id,
+																				product:
+																					PRODUCT,
 																			}
 																		);
-																	}}
-																	key={
-																		size.value
-																	}>
-																	{size.value}
-																</Size>
+																	}}></span>
 															);
 														}
 													)}
-												</p>
-											</>
-										)}
-										{attribute?.name === "Color" && (
-											<ColorSwatch>
-												<ColorLabel>Color:</ColorLabel>
-												{attribute?.items?.map(
-													(color, index) => {
-														return (
-															<span
-																key={
-																	color.value
-																}
-																className={
-																	color?.selected
-																		? "selected"
-																		: ""
-																}
-																style={{
-																	backgroundColor:
-																		color.value,
-																}}
-																onClick={(
-																	event
-																) => {
-																	PRODUCT[
-																		"attributes"
-																	] =
-																		setAnAttribute(
-																			PRODUCT,
-																			attribute?.name,
-																			index
-																		);
+												</ColorSwatch>
+											)}
+										</div>
+									)
+								)}
+							<PriceLabel>Price:</PriceLabel>
+							<Price>
+								{PRODUCT.prices[currency].currency.symbol}
+								{PRODUCT.prices[currency].amount}
+								{/* {PRODUCT.prices[currency].currency.label} */}
+							</Price>
 
-																	this.setState(
-																		{
-																			selectedColor:
-																				event
-																					.target
-																					.style
-																					.backgroundColor,
-																		}
-																	);
-																}}></span>
-														);
-													}
-												)}
-											</ColorSwatch>
-										)}
-									</div>
-								))}
-							<PriceLabel>
-								Price:
-								<Price>
-									{PRODUCT.prices[currency].currency.symbol}
-									{PRODUCT.prices[currency].amount}
-									{/* {PRODUCT.prices[currency].currency.label} */}
-								</Price>
-							</PriceLabel>
 							{PRODUCT?.inStock ? (
 								<AddToCartBtn
 									to="/cart"

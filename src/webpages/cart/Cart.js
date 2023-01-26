@@ -37,7 +37,7 @@ const ItemDescription = styled.div`
 	flex-direction: column;
 	flex: 3;
 `;
-const Brand = styled.h3`
+const Brand = styled.aside`
 	font-family: ${FONTS.FAMILIES.RALEWAY};
 	font-weight: ${FONTS.WEIGHTS.LARGER};
 	font-size: ${FONTS.SIZES.THIRTY};
@@ -56,7 +56,7 @@ const PriceLabel = styled.h4`
 	color: ${COLORS.BLACK};
 	margin-bottom: 20px;
 `;
-const Size = styled.p`
+const Size = styled.aside`
 	font-family: ${FONTS.FAMILIES.ROBOTO_CONDENSED};
 	font-weight: ${FONTS.WEIGHTS.LARGEST};
 	font-size: ${FONTS.SIZES.EIGHTEEN};
@@ -254,7 +254,7 @@ class Cart extends Component {
 
 								{item?.attributes?.length > 0 &&
 									item.attributes.map((attribute) => (
-										<>
+										<div key={attribute.name}>
 											{attribute?.name === "Size" && (
 												<Size>
 													<p>SIZE:</p>
@@ -262,8 +262,9 @@ class Cart extends Component {
 														(size) => (
 															<span
 																className={
-																	size?.selected &&
-																	"selected"
+																	size?.selected
+																		? "selected"
+																		: ""
 																}
 																id={size.value}
 																key={
@@ -282,8 +283,12 @@ class Cart extends Component {
 														(color) => (
 															<span
 																className={
-																	color?.selected &&
-																	"selected"
+																	color?.selected
+																		? "selected"
+																		: ""
+																}
+																key={
+																	color.value
 																}
 																style={{
 																	backgroundColor:
@@ -293,7 +298,7 @@ class Cart extends Component {
 													)}
 												</Color>
 											)}
-										</>
+										</div>
 									))}
 							</ItemDescription>
 							<QuantityIcons>
@@ -327,14 +332,17 @@ class Cart extends Component {
 											slidingDuration: 500,
 											slidingDelay: 100,
 										}}>
-										{item.gallery.map((galleryItem) => (
-											<Slide
-												background={{
-													backgroundImageSrc:
-														galleryItem,
-												}}
-											/>
-										))}
+										{item.gallery.map(
+											(galleryItem, index) => (
+												<Slide
+													background={{
+														backgroundImageSrc:
+															galleryItem,
+													}}
+													key={index.toString()}
+												/>
+											)
+										)}
 									</HeroSlider>
 								)}
 							</ImageContainer>
