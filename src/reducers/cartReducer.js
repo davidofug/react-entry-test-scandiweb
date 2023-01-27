@@ -2,6 +2,7 @@ import {
 	ADD_TO_CART,
 	ADD_TO_QUANTITY,
 	REDUCE_TO_QUANTITY,
+	UPDATE_CART,
 } from "../actions/types";
 
 const initialState = {
@@ -44,6 +45,12 @@ export default function cartReducer(state = initialState, action) {
 
 			localStorage.setItem("cart", JSON.stringify([...state.items]));
 
+			return {
+				items: [...state.items],
+			};
+		case UPDATE_CART:
+			state.items[action.payload.position] = action.payload.item;
+			localStorage.setItem("cart", JSON.stringify(state.items));
 			return {
 				items: [...state.items],
 			};

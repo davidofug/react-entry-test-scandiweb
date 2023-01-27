@@ -40,6 +40,7 @@ export const deselect = (attribute) => {
 	const { items } = attribute;
 	return items.map((item) => ({ value: item.value, selected: false }));
 };
+
 export const setAnAttribute = (product, attribute, position) => {
 	return product?.attributes.map((theAttribute) => {
 		if (theAttribute.name === attribute) {

@@ -2,7 +2,13 @@ import React, { Component } from "react";
 import styled from "styled-components/macro";
 import { FONTS, COLORS } from "../constants";
 import { connect } from "react-redux";
-import { addToQuantity, reduceToQuantity } from "actions/cartActions";
+import {
+	addToQuantity,
+	reduceToQuantity,
+	updateCart,
+} from "actions/cartActions";
+import { setAnAttribute } from "components/utils/functions";
+
 const MiniCartLayout = styled.aside`
 	position: absolute;
 	width: 325px;
@@ -86,6 +92,10 @@ const Size = styled.div`
 			color: ${COLORS.WHITE};
 		}
 	}
+
+	> span.selected {
+		border-color: red;
+	}
 `;
 const ImageContainer = styled.div`
 	position: relative;
@@ -116,6 +126,9 @@ const Color = styled.div`
 		text-align: center;
 		border: 1px solid ${COLORS.GREEN};
 		cursor: pointer;
+	}
+	> span.selected {
+		border-color: red;
 	}
 `;
 const QuantityIcons = styled.div`
@@ -269,11 +282,31 @@ class Minicart extends Component {
 												<Size>
 													<p>Size:</p>
 													{attribute.items.map(
-														(size) => (
+														(
+															size,
+															sizePosition
+														) => (
 															<span
-																key={
-																	size.value
-																}>
+																className={
+																	size?.selected
+																		? "selected"
+																		: ""
+																}
+																key={size.value}
+																onClick={() => {
+																	item[
+																		"attributes"
+																	] =
+																		setAnAttribute(
+																			item,
+																			attribute.name,
+																			sizePosition
+																		);
+																	this.props.updateCart(
+																		item,
+																		index
+																	);
+																}}>
 																{size.value}
 															</span>
 														)
@@ -284,14 +317,36 @@ class Minicart extends Component {
 												<Color>
 													<h5>Color:</h5>
 													{attribute.items.map(
-														(color) => (
+														(
+															color,
+															colorPosition
+														) => (
 															<span
+																className={
+																	color?.selected
+																		? "selected"
+																		: ""
+																}
 																key={
 																	color.value
 																}
 																style={{
 																	backgroundColor:
 																		color.value,
+																}}
+																onClick={() => {
+																	item[
+																		"attributes"
+																	] =
+																		setAnAttribute(
+																			item,
+																			attribute.name,
+																			colorPosition
+																		);
+																	this.props.updateCart(
+																		item,
+																		index
+																	);
 																}}></span>
 														)
 													)}
@@ -349,5 +404,5 @@ const mapStateToProps = (state) => ({
 	...state.currencyReducer,
 });
 
-const mapDispatchToProps = { addToQuantity, reduceToQuantity };
+const mapDispatchToProps = { addToQuantity, reduceToQuantity, updateCart };
 export default connect(mapStateToProps, mapDispatchToProps)(Minicart);
