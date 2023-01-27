@@ -150,7 +150,7 @@ const ImageContainer = styled.div`
 		cursor: pointer;
 	}
 	.hero-slider-previous-container > .hero-slider-previous-button {
-		background-image: url(${PreviousCaret});
+		background-image: url(${NextCaret});
 	}
 	.hero-slider-next-container > .hero-slider-next-button {
 		background-image: url(${NextCaret});
