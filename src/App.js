@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ElementWrapper from "./components/utils/withRouter";
 import HeaderWrapper from "./components/Header";
 import GlobalStyle from "components/GlobalStyles";
+import Home from "webpages/productListing/Home";
 import Category from "webpages/productListing/Category";
 import ProductDetails from "webpages/products/ProductDetails";
 import Cart from "webpages/cart/Cart";
@@ -17,11 +18,12 @@ class App extends Component {
 				<BrowserRouter>
 					<HeaderWrapper />
 					<Routes>
-						<Route path="/" element={<Category />} />
+						<Route path="/" element={<Home />} />
 						<Route
 							path="/:category"
 							element={<ElementWrapper routeElement={Category} />}
 						/>
+						{/* <Route path="/:category" element={<Category />} /> */}
 						<Route
 							path="/:category/:id"
 							element={

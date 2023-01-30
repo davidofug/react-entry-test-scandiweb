@@ -114,16 +114,12 @@ const StockOutTitle = styled.h1`
 	font-weight: ${FONTS.WEIGHTS.MEDIUM};
 	text-transform: uppercase;
 `;
-class Category extends Component {
-	constructor(props) {
-		super(props);
-	}
+class Home extends Component {
 	state = {
 		category: {},
 	};
 
 	componentDidMount() {
-		console.log("this.props");
 		const query = `query getProductsByCategory($category: CategoryInput!) {
 			category(input: $category) {
 			  name
@@ -152,7 +148,7 @@ class Category extends Component {
 	}
 	`;
 		const variables = {
-			category: { title: this?.props?.params?.category },
+			category: { title: "all" },
 		};
 
 		fetch(
@@ -171,25 +167,26 @@ class Category extends Component {
 		)
 			.then((response) => response.json())
 			.then((results) => {
-				this.setState({ category: results.data.category });
+				const category = results.data.category;
+				this.setState({ category });
 			});
 	}
 
 	render() {
 		const { currency, symbol } = this.props.currencyReducer;
-		const CATEGORY = this.state.category;
+		const { name, products } = this.state.category;
 		return (
 			<CategoryLayout>
-				<CategoryName>{CATEGORY?.name}</CategoryName>
+				<CategoryName>All</CategoryName>
 				<ProductList>
-					{CATEGORY?.products?.length > 0 &&
-						CATEGORY?.products.map((product) => (
+					{products?.length > 0 &&
+						products.map((product) => (
 							<ProductItem
 								hovered={this.state.hovered}
 								key={product.id}
 								id={product.id}
 								product={product}
-								category={CATEGORY.name}
+								category={name}
 								currency={currency}
 								symbol={symbol}
 								setProductDetails={this.props.setProductDetails}
@@ -294,4 +291,4 @@ const mapStateToProps = (state) => ({
 	...state,
 });
 const mapDispatchToProps = { setProductDetails, addToCart };
-export default connect(mapStateToProps, mapDispatchToProps)(Category);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
